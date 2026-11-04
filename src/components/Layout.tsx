@@ -25,7 +25,7 @@ export function Layout() {
       </a>
 
       {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-bone-300/60 bg-bone-50/70 px-5 py-7 backdrop-blur lg:flex">
+      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-bone-300/60 bg-bone-50/90 px-5 py-7 backdrop-blur-md lg:flex">
         <Wordmark />
         <p className="display-italic mt-2 pl-[2.6rem] text-sm text-clay-600">Train. Fuel. Thrive.</p>
         <nav aria-label="Main" className="mt-8 flex flex-col gap-1">
@@ -63,7 +63,7 @@ export function Layout() {
 
       <div className="flex min-h-dvh flex-1 flex-col">
         {/* Mobile header */}
-        <header className="safe-top sticky top-0 z-30 border-b border-bone-300/50 bg-bone-100/80 backdrop-blur-md lg:hidden">
+        <header className="safe-top sticky top-0 z-30 border-b border-bone-300/50 bg-bone-50/90 backdrop-blur-md lg:hidden">
           <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
             <NavLink to="/" aria-label="CRUX home">
               <Wordmark />

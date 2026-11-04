@@ -25,7 +25,7 @@ export function Home() {
       <QuickTiles />
 
       {isEmpty && (
-        <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-dashed border-clay-300 bg-clay-50/70 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-dashed border-clay-300 bg-bone-50/95 p-4 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-clay-800">New here? Load a week of sample data to see how CRUX looks in use. You can clear it any time in Profile & privacy.</p>
           <button className="btn-primary shrink-0" onClick={loadDemo}>
             Load demo data

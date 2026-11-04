@@ -21,7 +21,7 @@ export function Settings() {
 
   return (
     <div className="space-y-5">
-      <h1 className="display-italic text-4xl font-medium">Profile & privacy</h1>
+      <header className="card"><p className="eyebrow">Your account</p><h1 className="display-italic text-4xl font-medium">Profile & privacy</h1></header>
 
       <section className="card space-y-4">
         <SectionHeader title="Profile" icon={<UserRound size={20} aria-hidden />} />
@@ -96,7 +96,7 @@ export function Settings() {
         )}
       </section>
 
-      <p className="text-center text-xs text-ink-500">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
+      <p className="mx-auto w-fit rounded-full bg-bone-50/90 px-4 py-1.5 text-center text-xs text-ink-600">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
     </div>
   );
 }

@@ -105,7 +105,7 @@ export function Guide() {
           </div>
         ))}
         {loading && (
-          <div className="flex items-center gap-2 text-ink-500">
+          <div className="flex w-fit items-center gap-2 rounded-full bg-bone-50/95 px-4 py-2 text-ink-600">
             <Loader2 size={18} className="animate-spin" aria-hidden /> CRUX GUIDE is thinking…
           </div>
         )}
@@ -137,7 +137,7 @@ export function Guide() {
 
 function Header() {
   return (
-    <header>
+    <header className="card">
       <p className="eyebrow">AI wellness assistant</p>
       <h1 className="display-italic flex items-center gap-2 text-4xl font-medium">
         <Sparkles className="text-clay-500" aria-hidden /> Guide

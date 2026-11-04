@@ -1,8 +1,8 @@
 /* CRUX service worker — makes the app installable and keeps the shell available offline.
    Navigations: network first, fall back to cached shell. Static assets: cache first.
    API calls (Supabase / GUIDE) are never cached. */
-const CACHE = 'crux-v1';
-const SHELL = ['/', '/manifest.webmanifest', '/icons/icon.svg'];
+const CACHE = 'crux-v2';
+const SHELL = ['/', '/manifest.webmanifest', '/icons/icon.svg', '/textures/ikat.webp'];
 
 self.addEventListener('install', (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -32,7 +32,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/icons/')) {
+  if (url.pathname.startsWith('/assets/') || url.pathname.startsWith('/icons/') || url.pathname.startsWith('/textures/')) {
     e.respondWith(
       caches.match(request).then(
         (hit) =>

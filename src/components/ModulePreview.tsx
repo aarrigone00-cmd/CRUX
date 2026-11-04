@@ -48,7 +48,7 @@ export function ModulePreview({
         </ul>
       </section>
       {principle && (
-        <section className="rounded-[var(--radius-card)] border-l-4 border-clay-500 bg-bone-200/60 p-5">
+        <section className="rounded-[var(--radius-card)] border-l-4 border-clay-500 bg-bone-100/95 p-5 shadow-[var(--shadow-soft)]">
           <h2 className="eyebrow">Our approach</h2>
           <p className="mt-1 text-ink-700">{principle}</p>
         </section>
