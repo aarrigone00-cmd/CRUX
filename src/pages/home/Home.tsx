@@ -3,6 +3,7 @@ import { Activity, ArrowRight, Leaf, Salad, Sparkles } from 'lucide-react';
 import { useStore } from '@/data/store';
 import { fuelReminders, recoverySuggestions } from '@/lib/suggestions';
 import { SectionHeader } from '@/components/ui';
+import { T } from '@/components/Type';
 import { WeekChart } from '@/components/WeekChart';
 import { CheckInCard } from './CheckInCard';
 import { PrioritiesCard } from './PrioritiesCard';
@@ -68,7 +69,9 @@ export function Home() {
             </p>
             <Sparkles size={16} aria-hidden className="text-ink-900" />
           </div>
-          <h2 className="mt-5 font-display text-4xl leading-none italic">Ask for beta.</h2>
+          <h2 className="mt-5 text-[2.6rem] leading-[1.05]">
+            <T s="grotesk">Ask</T> <T s="circle">for</T> <T s="script">beta.</T>
+          </h2>
           <p className="mt-2 font-display text-lg text-ink-700 italic">Warm-ups, meals, recovery, planning — in plain language.</p>
           <ol className="mt-5 border-t border-ink-900/25">
             {GUIDE_PROMPTS.map((q, i) => (

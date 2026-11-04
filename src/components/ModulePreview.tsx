@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Figure, type Art } from './Figure';
 import { cx } from './ui';
+import { Mixed } from './Type';
 
 type Block = 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone';
 
@@ -53,7 +54,9 @@ export function ModulePreview({
         <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_1.1fr] sm:gap-8">
           <div className="flex flex-col justify-between">
             <div>
-              <h1 className={cx('font-display text-5xl leading-none italic sm:text-6xl', ink)}>{name}</h1>
+              <h1 className={cx('text-6xl leading-none sm:text-7xl', ink)}>
+                <Mixed text={name} />
+              </h1>
               <p className={cx('mt-3 max-w-xs font-display text-lg italic', sub)}>{tagline}</p>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-3">
@@ -72,7 +75,9 @@ export function ModulePreview({
 
       <section className="card">
         <p className="eyebrow">Phase 3 · Contents</p>
-        <h2 className="mt-1 border-b border-ink-900/15 pb-3 font-display text-3xl italic">What’s coming</h2>
+        <h2 className="mt-2 border-b border-ink-900/15 pb-3 text-3xl leading-tight">
+          <Mixed text="What’s coming next" />
+        </h2>
         <ol className="mt-1 grid sm:grid-cols-2 sm:gap-x-8">
           {features.map((f, i) => (
             <li key={f} className="flex items-baseline gap-3 border-b border-ink-900/10 py-2.5 text-ink-800">

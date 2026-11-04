@@ -4,6 +4,7 @@ import { useStore } from '@/data/store';
 import { ACTIVITY_TYPES } from '@/lib/types';
 import { getGuideConsent, setGuideConsent } from '@/lib/guide';
 import { Chip, SectionHeader } from '@/components/ui';
+import { Mixed } from '@/components/Type';
 
 export function Settings() {
   const { data, updateProfile, resetAll, loadDemo } = useStore();
@@ -21,7 +22,7 @@ export function Settings() {
 
   return (
     <div className="space-y-5">
-      <header className="card"><p className="eyebrow">/Your account</p><h1 className="mt-1 font-display text-5xl italic">Profile & privacy</h1></header>
+      <header className="card"><p className="eyebrow">/Your account</p><h1 className="mt-2 text-5xl leading-tight"><Mixed text="Profile & privacy" pattern={0} /></h1></header>
 
       <section className="card space-y-4">
         <SectionHeader title="Profile" icon={<UserRound size={20} aria-hidden />} />

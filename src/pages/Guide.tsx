@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { AlertCircle, Loader2, Send, ShieldCheck, Sparkles } from 'lucide-react';
 import { askGuide, getGuideConsent, setGuideConsent, type GuideMessage } from '@/lib/guide';
 import { cx } from '@/components/ui';
+import { T } from '@/components/Type';
 
 const STARTERS = [
   'A 15-minute bouldering warm-up',
@@ -139,8 +140,8 @@ function Header() {
   return (
     <header className="card">
       <p className="eyebrow">AI wellness assistant</p>
-      <h1 className="font-display text-5xl italic">
-        Guide <span className="font-mono text-sm not-italic text-ink-500">/AI · BETA</span>
+      <h1 className="text-6xl leading-none">
+        <T s="script">Guide</T> <span className="font-mono text-sm text-ink-500">/AI · BETA</span>
       </h1>
     </header>
   );

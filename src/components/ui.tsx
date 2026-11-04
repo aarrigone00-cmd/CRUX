@@ -1,6 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import type { Scale } from '@/lib/types';
 import type { Tone } from '@/lib/suggestions';
+import { Mixed } from './Type';
 
 export function cx(...c: Array<string | false | null | undefined>) {
   return c.filter(Boolean).join(' ');
@@ -19,7 +20,9 @@ export function SectionHeader({ title, eyebrow, action }: { title: string; eyebr
     <div className="mb-5 flex items-end justify-between gap-3 border-b border-ink-900/15 pb-3">
       <div>
         {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-        <h2 className="mt-1 font-display text-[1.75rem] leading-none italic">{title}</h2>
+        <h2 className="mt-2 text-[1.7rem] leading-[1.05]">
+          <Mixed text={title} />
+        </h2>
       </div>
       {action}
     </div>

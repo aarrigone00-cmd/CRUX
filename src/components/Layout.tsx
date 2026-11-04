@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { ArrowUpRight, Brain, CalendarHeart, CircleUserRound, House, Mountain, Salad } from 'lucide-react';
 import { Ridge } from './Ridge';
 import { cx } from './ui';
+import { T, type TypeStyle } from './Type';
+
+const NAV_VOICE: TypeStyle[] = ['didone', 'script', 'grotesk', 'italic', 'didone'];
 
 export const NAV = [
   { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today' },
@@ -55,8 +58,8 @@ export function Layout() {
                     <>
                       <span className={cx('w-6 font-mono text-[0.7rem]', isActive ? 'text-mustard-300' : 'text-bone-100/45')}>0{i + 1}</span>
                       <span className="flex-1">
-                        <span className={cx('block font-display text-[1.65rem] leading-tight italic transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
-                          {label}
+                        <span className={cx('block text-[1.6rem] leading-tight transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
+                          <T s={NAV_VOICE[i]}>{label}</T>
                         </span>
                         <span className="block font-mono text-[0.62rem] tracking-[0.12em] text-bone-100/45 uppercase">{blurb}</span>
                       </span>
@@ -73,7 +76,9 @@ export function Layout() {
           <NavLink to="/guide" className="group flex items-end justify-between bg-mustard-300 p-4 text-ink-900 transition-colors hover:bg-mustard-200">
             <span>
               <span className="block font-mono text-[0.62rem] tracking-[0.14em] uppercase">AI assistant</span>
-              <span className="block font-display text-2xl italic">Ask the Guide</span>
+              <span className="block text-2xl leading-tight">
+                <T s="italic">Ask</T> <T s="circle">the</T> <T s="script">Guide</T>
+              </span>
             </span>
             <ArrowUpRight size={22} aria-hidden className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </NavLink>

@@ -8,6 +8,9 @@
   --font-display: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
   --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
   --font-grotesk: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --font-didone: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+  --font-script: 'Mrs Saint Delafield', 'Snell Roundhand', cursive;
+  --font-brush: 'Mr Dafoe', 'Brush Script MT', cursive;
 
   /* paper */
   --color-bone-50: #fcfaf2;

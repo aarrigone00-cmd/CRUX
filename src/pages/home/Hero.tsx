@@ -3,6 +3,7 @@ import { useStore } from '@/data/store';
 import { formatLongDate, greeting } from '@/lib/date';
 import { Figure } from '@/components/Figure';
 import { Marquee } from '@/components/Marquee';
+import { T } from '@/components/Type';
 
 const MOOD = ['very low', 'low', 'okay', 'good', 'great'];
 const ENERGY = ['drained', 'low', 'steady', 'strong', 'charged'];
@@ -11,6 +12,10 @@ const ENERGY = ['drained', 'low', 'steady', 'strong', 'charged'];
 export function Hero() {
   const { data, today, todayCheckIn: c } = useStore();
   const name = data.profile.displayName.trim() || 'you';
+  const [g1, ...rest] = greeting().split(' ');
+  const g2 = rest.join(' ');
+  const now = new Date();
+  const issueNo = String(Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86_400_000)).padStart(3, '0');
   const workouts = data.workouts.filter((w) => w.date === today);
   const priorities = data.priorities.filter((p) => p.date === today);
 
@@ -25,14 +30,20 @@ export function Hero() {
 
       <div className="grid gap-8 px-5 pt-7 pb-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-10">
         <div className="flex flex-col justify-between">
-          <h1 className="font-grotesk text-[2.4rem] leading-[1.02] font-medium tracking-[-0.035em] text-ink-900 sm:text-[3.4rem]">
-            {greeting()}, <span className="font-display font-normal tracking-normal italic">{name}</span>.{' '}
+          <h1 className="text-[2.5rem] leading-[1.22] text-oxblood-500 sm:text-[3.6rem]">
+            <T s="didone">{g1}</T> <T s="script">{g2},</T>
+            <br />
+            <T s="grotesk">{name}</T> <T s="circle">No.{issueNo}</T>
+            <br />
             {c ? (
               <>
-                Feeling {MOOD[c.mood - 1]}, energy {ENERGY[c.energy - 1]}.
+                <T s="italic">feeling</T> <T s="didone">{MOOD[c.mood - 1]}</T> <T s="circle">&</T>{' '}
+                <T s="script">{ENERGY[c.energy - 1]}</T>
               </>
             ) : (
-              <span className="text-ink-400">How are you, really?</span>
+              <>
+                <T s="italic">how are you,</T> <T s="script">really?</T>
+              </>
             )}
           </h1>
 
