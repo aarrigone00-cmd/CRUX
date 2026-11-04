@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+
+/* ───────────── CRUX design tokens ─────────────
+   Sage green · Warm cream · Muted lavender · Dusty rose · Charcoal
+   Text colours on cream are chosen to meet WCAG AA (4.5:1) for body text. */
+@theme {
+  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+
+  --color-cream-50: #fdfbf7;
+  --color-cream-100: #faf6ef;
+  --color-cream-200: #f3ecdf;
+  --color-cream-300: #e8dcc8;
+
+  --color-sage-50: #f2f5ef;
+  --color-sage-100: #e2e9dc;
+  --color-sage-200: #c7d4bc;
+  --color-sage-300: #a9bb9a;
+  --color-sage-400: #8a9f7a;
+  --color-sage-500: #6f8560;
+  --color-sage-600: #5a6e4d;
+  --color-sage-700: #48583e;
+  --color-sage-800: #3a4733;
+
+  --color-lavender-50: #f5f2f9;
+  --color-lavender-100: #ebe5f3;
+  --color-lavender-200: #d7cce6;
+  --color-lavender-300: #bcaad3;
+  --color-lavender-400: #9e89bb;
+  --color-lavender-500: #806b9f;
+  --color-lavender-600: #6a5785;
+  --color-lavender-700: #56466c;
+
+  --color-rose-50: #fbf3f2;
+  --color-rose-100: #f6e4e2;
+  --color-rose-200: #ecc9c5;
+  --color-rose-300: #dda7a2;
+  --color-rose-400: #c9847f;
+  --color-rose-500: #b06a66;
+  --color-rose-600: #925452;
+  --color-rose-700: #774443;
+
+  --color-charcoal-300: #a8a49d;
+  --color-charcoal-400: #807b73;
+  --color-charcoal-500: #625e57;
+  --color-charcoal-600: #4a4743;
+  --color-charcoal-700: #393734;
+  --color-charcoal-800: #2b2a28;
+  --color-charcoal-900: #1f1e1d;
+
+  --radius-card: 1.25rem;
+  --shadow-soft: 0 1px 2px rgb(43 42 40 / 0.04), 0 4px 16px -4px rgb(43 42 40 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(43 42 40 / 0.05), 0 12px 32px -8px rgb(43 42 40 / 0.14);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-cream-100 font-sans text-charcoal-800 antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  h1, h2, h3 {
+    @apply text-charcoal-900;
+    line-height: 1.25;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-lavender-400);
+    outline-offset: 2px;
+    border-radius: 0.5rem;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility btn {
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+@layer components {
+  .card {
+    @apply rounded-[var(--radius-card)] border border-cream-300/60 bg-cream-50 p-5;
+    box-shadow: var(--shadow-soft);
+  }
+  .btn-primary { @apply btn bg-sage-700 text-white hover:bg-sage-800; }
+  .btn-secondary { @apply btn border border-sage-300 bg-transparent text-sage-800 hover:bg-sage-50; }
+  .btn-ghost { @apply btn px-3 text-charcoal-600 hover:bg-cream-200; }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-cream-300 bg-white px-4 text-charcoal-800 placeholder:text-charcoal-400 focus:border-sage-400 focus:outline-none;
+  }
+  .eyebrow { @apply text-xs font-semibold tracking-[0.14em] text-charcoal-500 uppercase; }
+}
+
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+.safe-top { padding-top: env(safe-area-inset-top); }

@@ -1,0 +1,29 @@
+{
+  "name": "crux",
+  "private": true,
+  "version": "0.1.0",
+  "description": "CRUX — Train. Fuel. Thrive. Integrated women's wellness and athletic performance app.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-react": "^0.511.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.4",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "tailwindcss": "^4.3.4",
+    "typescript": "~5.8",
+    "vite": "^6.4.5"
+  }
+}
