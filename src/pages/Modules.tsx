@@ -12,8 +12,8 @@ export function Cycle() {
       vol="004"
       block="cocoa"
       plates={['ikat', 'ridge-calm', 'ridge']}
-      captions={['Swim fashion, 1950', 'Street style, Peru, 1952', 'By the lighthouse, 1951']}
-      photos={[PHOTOS.swim50, PHOTOS.peru52, PHOTOS.lighthouse51]}
+      captions={['Swim fashion, 1950', 'Montego Bay, 1946', 'By the lighthouse, 1951']}
+      photos={[PHOTOS.swim50, PHOTOS.montego46, PHOTOS.lighthouse51]}
       icon={<CalendarHeart size={24} aria-hidden />}
       tagline="Menstrual health tracking that puts your own experience first."
       features={[
@@ -36,8 +36,9 @@ export function Mind() {
       vol="005"
       block="sky"
       plates={['holds', 'ikat', 'ridge-calm']}
-      captions={['Afloat, Marineland, 1939', 'Her own pace, Peru, 1952', 'Weeki Wachee Spring, 1947']}
-      photos={[PHOTOS.marineland39, PHOTOS.peru52, PHOTOS.weeki47]}
+      captions={['Afloat, Weeki Wachee, 1947', 'Lauterbrunnen Valley, c. 1900', 'Arni Alp, Engelberg, c. 1900']}
+      photos={[PHOTOS.weeki47, PHOTOS.lauterbrunnen, PHOTOS.arniAlp]}
+      overlay
       icon={<Brain size={24} aria-hidden />}
       tagline="ADHD-friendly focus, mood and organisation — fewer decisions, more done."
       features={['Daily focus tracking', 'Mood, stress and sleep logs', 'Daily task planner', 'Simple, repeatable routines', 'Gentle reminders', 'Progress visualisation']}
@@ -53,8 +54,8 @@ export function Fuel() {
       vol="003"
       block="mustard"
       plates={['wall', 'holds', 'ridge']}
-      captions={['Out on the water, 1946', 'Market day, Cusco, 1952', 'Beach picnic, 1955']}
-      photos={[PHOTOS.montego46, PHOTOS.cusco52, PHOTOS.picnic55]}
+      captions={['Wildflowers, 1967', 'Autumn light, 1968', 'Beach picnic, 1955']}
+      photos={[PHOTOS.didi67, PHOTOS.sherrewogue68, PHOTOS.picnic55]}
       icon={<Salad size={24} aria-hidden />}
       tagline="Simple, adequate fuelling for training and recovery."
       features={[
@@ -79,8 +80,8 @@ const TRAIN_TABS = [
     vol: '001',
     block: 'clay',
     plates: ['ridge-calm', 'holds', 'ridge'],
-    captions: ['Sugarbush, Vermont, 1959', 'Ski parkas, 1956', 'Switzerland, 1955'],
-    photos: [PHOTOS.sugarbush59, PHOTOS.parkas56, PHOTOS.swiss55],
+    captions: ['Maiturm, Saxon Switzerland', 'Smith Rock, 1987', 'On the tower, after 1945'],
+    photos: [PHOTOS.maiturm42, PHOTOS.smith87d, PHOTOS.maiturm44],
     icon: <Dumbbell size={24} aria-hidden />,
     tagline: 'Log every kind of training in one place.',
     features: ['Climbing, strength, Pilates, yoga, running, cycling and more', 'Workout history', 'Duration and intensity', 'Session notes', 'Personal goals', 'Consistency charts'],

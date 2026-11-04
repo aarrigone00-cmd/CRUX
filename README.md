@@ -84,7 +84,8 @@ src/
 
 Vintage photographs are loaded from Wikimedia Commons, and each is credited in-app under **Profile & privacy → Image credits** (the full list lives in `src/lib/photos.ts`). They include:
 
-- **Rock climbing:** Smith Rock, Oregon, 1987 and 1989 slide film, by Tequask (CC BY-SA 4.0); a climber in a hanging traverse, Saxon Switzerland, c. 1965, by Richard Peter / Deutsche Fotothek (CC BY-SA 3.0 DE).
-- **Outdoor fashion and leisure:** Toni Frissell's 1939–1959 work, including Weeki Wachee Spring (1947), Montego Bay (1946), swim fashion (1950), the lighthouse shoot (1951) and *Sports Illustrated* skiing and picnics. These are public domain, or have no known restrictions via the Library of Congress.
+- **Rock climbing:** Smith Rock, Oregon, 1987 and 1989 slide film, by Tequask (CC BY-SA 4.0); climbers in Saxon Switzerland (the Maiturm after 1945, and a hanging traverse c. 1965) by Richard Peter / Deutsche Fotothek (CC BY-SA 3.0 DE).
+- **Green landscapes:** 1890s–1900s hand-coloured photochroms of Swiss valleys (Photoglob / Detroit Publishing Co., Library of Congress, public domain).
+- **Outdoor fashion and leisure:** Toni Frissell's 1939–1959 work, including Weeki Wachee Spring (1947), Montego Bay (1946), swim fashion (1950), the lighthouse shoot (1951), a 1955 beach picnic, and colour work for *Vogue* (1967) and Long Island (1968). These are public domain, or have no known restrictions via the Library of Congress.
 
 If a photo can't load, the app falls back to its original illustrated artwork (`VintagePhoto.tsx`). Everything else (ridge, wall, holds, doodles, the ikat pattern) is original and generated in code.

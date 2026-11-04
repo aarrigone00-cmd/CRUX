@@ -1,5 +1,5 @@
 /** Hand-drawn marks for riso cards: wobbly, round-capped strokes in the card's ink colour. */
-export type DoodleKind = 'arrow' | 'loops' | 'climber' | 'cross' | 'holds' | 'zigzag';
+export type DoodleKind = 'arrow' | 'loops' | 'climber' | 'cross' | 'holds' | 'zigzag' | 'meadow';
 
 export function Doodle({ kind, className = '' }: { kind: DoodleKind; className?: string }) {
   const common = { fill: 'none', stroke: 'currentColor', strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
@@ -51,6 +51,24 @@ export function Doodle({ kind, className = '' }: { kind: DoodleKind; className?:
           {/* chalk bag & hold */}
           <circle cx="102" cy="100" r="4" />
           <path d="M136 22 C 146 18, 150 28, 142 32 Z" />
+        </g>
+      )}
+      {kind === 'meadow' && (
+        <g {...common} strokeWidth="2.4">
+          {/* loose wildflower stems and blooms, drawn fast */}
+          <path d="M40 140 C 42 110, 36 80, 44 52" />
+          <path d="M44 52 C 34 44, 36 30, 46 32 C 56 26, 60 42, 48 50" />
+          <path d="M62 142 C 64 118, 70 96, 66 70" strokeDasharray="10 4 2 4" />
+          <path d="M66 70 C 58 60, 64 50, 72 56 C 80 48, 86 62, 74 68 Z" />
+          <path d="M96 144 C 98 112, 92 84, 102 40" />
+          <path d="M102 40 C 92 30, 98 14, 108 22 C 116 12, 126 26, 112 36 C 122 40, 114 52, 104 46" />
+          <path d="M128 142 C 126 120, 132 100, 128 78" strokeDasharray="12 5" />
+          <path d="M128 78 C 118 72, 122 58, 132 64 C 142 58, 146 74, 132 80" />
+          <path d="M156 140 C 158 116, 152 98, 160 72" />
+          <path d="M160 72 C 150 62, 160 50, 166 60 C 176 54, 178 70, 164 74" />
+          <path d="M20 146 C 60 130, 120 150, 196 128" strokeWidth="1.6" strokeDasharray="6 6" />
+          <path d="M84 120 C 74 112, 72 104, 80 98" strokeWidth="1.8" />
+          <path d="M110 118 C 122 110, 126 100, 118 94" strokeWidth="1.8" />
         </g>
       )}
       {kind === 'holds' && (

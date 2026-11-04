@@ -10,7 +10,7 @@ function U({ children }: { children: string }) {
 }
 
 export const NAV = [
-  { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today / Check-in / Priorities' },
+  { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today / Check-in' },
   { to: '/train', label: 'Train', icon: Mountain, blurb: 'Move / Climb / Prep' },
   { to: '/fuel', label: 'Fuel', icon: Salad, blurb: 'Meals / Snacks / Recovery' },
   { to: '/cycle', label: 'Cycle', icon: CalendarHeart, blurb: 'Calendar / Symptoms' },
@@ -65,7 +65,7 @@ export function Layout() {
                         <span className={cx('block font-condensed text-[1.7rem] leading-[1.05] font-semibold tracking-[0.01em] uppercase transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
                           {label}
                         </span>
-                        <span className="block font-display text-[0.95rem] text-bone-100/55 italic">{blurb}</span>
+                        <span className="block font-display text-[0.98rem] text-bone-100/60">{blurb}</span>
                       </span>
                       <span aria-hidden className={cx('h-2 w-2 self-center transition-colors', isActive ? 'bg-mustard-300' : 'bg-transparent')} />
                     </>
@@ -80,7 +80,7 @@ export function Layout() {
           <NavLink to="/guide" className="group flex items-end justify-between bg-mustard-300 p-4 text-ink-900 transition-colors hover:bg-mustard-200">
             <span>
               <span className="block font-condensed text-[1.6rem] leading-none font-semibold uppercase">Ask the Guide</span>
-              <span className="block font-display text-[0.95rem] italic">AI assistant / Beta</span>
+              <span className="block font-display text-[0.98rem]">AI assistant / Beta</span>
             </span>
             <ArrowUpRight size={22} aria-hidden className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </NavLink>
@@ -100,7 +100,7 @@ export function Layout() {
           <NavLink to="/settings" className={({ isActive }) => cx('flex items-center gap-2 font-condensed text-lg font-medium tracking-[0.02em] uppercase', isActive ? 'text-mustard-300' : 'text-bone-100/80 hover:text-bone-50')}>
             <CircleUserRound size={16} aria-hidden /> Profile & privacy
           </NavLink>
-          <p className="mt-1 font-display text-sm text-bone-100/45 italic">{month} / Edition {no}</p>
+          <p className="mt-1 font-display text-sm text-bone-100/45">{month} / Edition {no}</p>
         </div>
       </aside>
 

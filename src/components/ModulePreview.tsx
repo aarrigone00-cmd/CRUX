@@ -3,6 +3,7 @@ import { Figure, type Art } from './Figure';
 import { cx } from './ui';
 import { Mixed } from './Type';
 import type { Photo } from '@/lib/photos';
+import { Doodle } from './Doodle';
 
 type Block = 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone';
 
@@ -28,7 +29,9 @@ export function ModulePreview({
   plates = ['ridge-calm', 'holds', 'wall'],
   captions = ['Fig. a', 'Fig. b', 'Fig. c'],
   photos,
+  overlay = false,
 }: {
+  overlay?: boolean;
   photos?: readonly [Photo, Photo, Photo];
   name: string;
   vol: string;
@@ -71,7 +74,18 @@ export function ModulePreview({
             </div>
           </div>
           <PlateDark dark={b.dark}>
+            <div className="relative">
+            {overlay && (
+              <>
+                <Doodle kind="meadow" className="pointer-events-none absolute inset-x-[6%] top-[14%] z-10 w-[88%] text-mustard-300 drop-shadow-[0_1px_1px_rgb(0_0_0/0.25)]" />
+                <p className="pointer-events-none absolute inset-x-4 top-3 z-10 flex justify-between font-condensed text-base font-semibold text-mustard-300 uppercase sm:text-lg">
+                  <span>Up next / Breathe</span>
+                  <span>Slow · Steady</span>
+                </p>
+              </>
+            )}
             <Figure art={plates[2]} id={`${name}-2`} caption={captions[2]} frameClass="aspect-[4/5] sm:aspect-auto sm:h-[26rem]" photo={photos?.[2]} />
+            </div>
           </PlateDark>
         </div>
       </header>
