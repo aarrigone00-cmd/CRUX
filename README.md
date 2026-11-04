@@ -82,10 +82,9 @@ src/
 
 ## Image credits
 
-Vintage climbing photos are loaded from Wikimedia Commons and credited in-app under **Profile & privacy → Image credits**:
+Vintage photographs are loaded from Wikimedia Commons, and each is credited in-app under **Profile & privacy → Image credits** (the full list lives in `src/lib/photos.ts`). They include:
 
-- [Smith Rock Climber, 1989](https://commons.wikimedia.org/wiki/File:Smith_Rock_Climber_05-1989.jpg), Tequask, CC BY-SA 4.0 (Home poster)
-- [Climber in a hanging traverse, Ostervorturm (Schrammsteine), c. 1965](https://commons.wikimedia.org/wiki/File:Fotothek_df_ps_0000628_Sport_%5E_Felsen.jpg), Richard Peter / Deutsche Fotothek, CC BY-SA 3.0 DE
-- [Smith Rock Climber, 1987](https://commons.wikimedia.org/wiki/File:Smith_Rock_Climber_11-1987.jpg), Tequask, CC BY-SA 4.0
+- **Rock climbing:** Smith Rock, Oregon, 1987 and 1989 slide film, by Tequask (CC BY-SA 4.0); a climber in a hanging traverse, Saxon Switzerland, c. 1965, by Richard Peter / Deutsche Fotothek (CC BY-SA 3.0 DE).
+- **Outdoor fashion and leisure:** Toni Frissell's 1939–1959 work, including Weeki Wachee Spring (1947), Montego Bay (1946), swim fashion (1950), the lighthouse shoot (1951) and *Sports Illustrated* skiing and picnics. These are public domain, or have no known restrictions via the Library of Congress.
 
 If a photo can't load, the app falls back to its original illustrated artwork (`VintagePhoto.tsx`). Everything else (ridge, wall, holds, doodles, the ikat pattern) is original and generated in code.

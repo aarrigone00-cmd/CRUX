@@ -3,6 +3,7 @@ import { Brain, CalendarHeart, Dumbbell, Mountain, Salad, StretchHorizontal } fr
 import { ModulePreview } from '@/components/ModulePreview';
 import { cx } from '@/components/ui';
 import type { Art } from '@/components/Figure';
+import { PHOTOS, type Photo } from '@/lib/photos';
 
 export function Cycle() {
   return (
@@ -11,7 +12,8 @@ export function Cycle() {
       vol="004"
       block="cocoa"
       plates={['ikat', 'ridge-calm', 'ridge']}
-      captions={['CRUX ikat print', 'Dusk range', 'Your rhythm, your read']}
+      captions={['Swim fashion, 1950', 'Street style, Peru, 1952', 'By the lighthouse, 1951']}
+      photos={[PHOTOS.swim50, PHOTOS.peru52, PHOTOS.lighthouse51]}
       icon={<CalendarHeart size={24} aria-hidden />}
       tagline="Menstrual health tracking that puts your own experience first."
       features={[
@@ -34,7 +36,8 @@ export function Mind() {
       vol="005"
       block="sky"
       plates={['holds', 'ikat', 'ridge-calm']}
-      captions={['Three holds', 'Woven focus', 'Quiet hour']}
+      captions={['Afloat, Marineland, 1939', 'Her own pace, Peru, 1952', 'Weeki Wachee Spring, 1947']}
+      photos={[PHOTOS.marineland39, PHOTOS.peru52, PHOTOS.weeki47]}
       icon={<Brain size={24} aria-hidden />}
       tagline="ADHD-friendly focus, mood and organisation — fewer decisions, more done."
       features={['Daily focus tracking', 'Mood, stress and sleep logs', 'Daily task planner', 'Simple, repeatable routines', 'Gentle reminders', 'Progress visualisation']}
@@ -50,7 +53,8 @@ export function Fuel() {
       vol="003"
       block="mustard"
       plates={['wall', 'holds', 'ridge']}
-      captions={['Pre-climb', 'Snack, packed', 'Recovery meal']}
+      captions={['Out on the water, 1946', 'Market day, Cusco, 1952', 'Beach picnic, 1955']}
+      photos={[PHOTOS.montego46, PHOTOS.cusco52, PHOTOS.picnic55]}
       icon={<Salad size={24} aria-hidden />}
       tagline="Simple, adequate fuelling for training and recovery."
       features={[
@@ -75,7 +79,8 @@ const TRAIN_TABS = [
     vol: '001',
     block: 'clay',
     plates: ['ridge-calm', 'holds', 'ridge'],
-    captions: ['Long run, dusk', 'Strength', 'All of it counts'],
+    captions: ['Sugarbush, Vermont, 1959', 'Ski parkas, 1956', 'Switzerland, 1955'],
+    photos: [PHOTOS.sugarbush59, PHOTOS.parkas56, PHOTOS.swiss55],
     icon: <Dumbbell size={24} aria-hidden />,
     tagline: 'Log every kind of training in one place.',
     features: ['Climbing, strength, Pilates, yoga, running, cycling and more', 'Workout history', 'Duration and intensity', 'Session notes', 'Personal goals', 'Consistency charts'],
@@ -87,7 +92,8 @@ const TRAIN_TABS = [
     vol: '002',
     block: 'sky',
     plates: ['holds', 'ridge-calm', 'wall'],
-    captions: ['Crimps', 'The approach', 'Project, V4'],
+    captions: ['Hanging traverse, c. 1965', 'Smith Rock, 1987', 'Smith Rock, 1989'],
+    photos: [PHOTOS.traverse65, PHOTOS.smith87c, PHOTOS.smith89b],
     icon: <Mountain size={24} aria-hidden />,
     tagline: 'A climbing log built by climbers.',
     features: ['Bouldering and route logs', 'V-scale, Font, YDS and French grades', 'Attempts, flashes and sends', 'Session notes', 'Grade pyramid and progression', 'Personal climbing goals'],
@@ -98,13 +104,14 @@ const TRAIN_TABS = [
     vol: '002·B',
     block: 'mustard',
     plates: ['wall', 'ikat', 'ridge'],
-    captions: ['Warm-up wall', 'Mobility', 'Ready to pull'],
+    captions: ['First moves, 1987', 'Reach, 1987', 'Two on the wall, 1987'],
+    photos: [PHOTOS.smith87a, PHOTOS.smith87e, PHOTOS.smith87],
     icon: <StretchHorizontal size={24} aria-hidden />,
     tagline: 'Warm-ups, mobility and recovery routines with guided timers.',
     features: ['Finger and wrist mobility', 'Shoulder preparation', 'Hip mobility', 'Progressive climbing warm-ups', 'Strength exercises and technique drills', 'Guided timers', 'Post-workout stretching', 'Injury-aware modifications'],
     principle: 'Any pain you report in your check-in will filter out exercises that load that area.',
   },
-] as const satisfies ReadonlyArray<{ block: 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone'; plates: readonly [Art, Art, Art]; captions: readonly [string, string, string] } & Record<string, unknown>>;
+] as const satisfies ReadonlyArray<{ block: 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone'; plates: readonly [Art, Art, Art]; captions: readonly [string, string, string]; photos: readonly [Photo, Photo, Photo] } & Record<string, unknown>>;
 
 export function Train() {
   const [tab, setTab] = useState<(typeof TRAIN_TABS)[number]['id']>('move');
@@ -125,7 +132,7 @@ export function Train() {
         ))}
       </div>
       <div role="tabpanel">
-        <ModulePreview key={t.id} vol={t.vol} block={t.block} plates={t.plates} captions={t.captions} name={t.label} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />
+        <ModulePreview key={t.id} vol={t.vol} block={t.block} plates={t.plates} captions={t.captions} photos={t.photos} name={t.label} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />
       </div>
     </div>
   );

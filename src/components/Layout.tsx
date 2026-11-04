@@ -3,16 +3,18 @@ import { useEffect } from 'react';
 import { ArrowUpRight, Brain, CalendarHeart, CircleUserRound, House, Mountain, Salad } from 'lucide-react';
 import { Ridge } from './Ridge';
 import { cx } from './ui';
-import { T, type TypeStyle } from './Type';
 
-const NAV_VOICE: TypeStyle[] = ['didone', 'script', 'grotesk', 'italic', 'didone'];
+/** Underlined keyword in the sidebar intro. */
+function U({ children }: { children: string }) {
+  return <span className="underline decoration-1 underline-offset-[3px]">{children}</span>;
+}
 
 export const NAV = [
-  { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today' },
-  { to: '/train', label: 'Train', icon: Mountain, blurb: 'Move · Climb · Prep' },
-  { to: '/fuel', label: 'Fuel', icon: Salad, blurb: 'Eat for the send' },
-  { to: '/cycle', label: 'Cycle', icon: CalendarHeart, blurb: 'Track & learn' },
-  { to: '/mind', label: 'Mind', icon: Brain, blurb: 'Focus & calm' },
+  { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today / Check-in / Priorities' },
+  { to: '/train', label: 'Train', icon: Mountain, blurb: 'Move / Climb / Prep' },
+  { to: '/fuel', label: 'Fuel', icon: Salad, blurb: 'Meals / Snacks / Recovery' },
+  { to: '/cycle', label: 'Cycle', icon: CalendarHeart, blurb: 'Calendar / Symptoms' },
+  { to: '/mind', label: 'Mind', icon: Brain, blurb: 'Focus / Routines / Calm' },
 ] as const;
 
 /** Issue number = day of the year, like a daily edition. */
@@ -45,23 +47,25 @@ export function Layout() {
           <NavLink to="/" aria-label="CRUX home" className="mt-3 block font-grotesk text-[4.6rem] leading-[0.85] font-medium tracking-[-0.04em] text-bone-50">
             CRUX
           </NavLink>
-          <p className="mt-3 font-display text-lg text-bone-100/80 italic">Train, Fuel, Thrive.</p>
+          <p className="mt-4 font-condensed text-[1.2rem] leading-[1.15] font-medium tracking-[0.01em] text-bone-100 uppercase">
+            A journal for women who climb. Playing with <U>movement</U>, <U>fuel</U> and all kinds of <U>rest</U> is our thing.
+          </p>
         </div>
 
         <nav aria-label="Main" className="mt-6 border-t border-bone-50/15 px-7 pt-5">
-          <p className="mb-2 font-mono text-[0.65rem] tracking-[0.14em] text-bone-100/50 uppercase">Contents</p>
+          <p className="mb-1 font-condensed text-sm font-medium tracking-[0.08em] text-bone-100/50 uppercase">Contents / Issue {no}</p>
           <ol>
             {NAV.map(({ to, label, blurb, ...rest }, i) => (
               <li key={to} className="border-b border-bone-50/10">
                 <NavLink to={to} end={'end' in rest} className="group flex items-baseline gap-4 py-2.5">
                   {({ isActive }) => (
                     <>
-                      <span className={cx('w-6 font-mono text-[0.7rem]', isActive ? 'text-mustard-300' : 'text-bone-100/45')}>0{i + 1}</span>
+                      <span className={cx('w-6 font-condensed text-base font-medium', isActive ? 'text-mustard-300' : 'text-bone-100/45')}>0{i + 1}</span>
                       <span className="flex-1">
-                        <span className={cx('block text-[1.6rem] leading-tight transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
-                          <T s={NAV_VOICE[i]}>{label}</T>
+                        <span className={cx('block font-condensed text-[1.7rem] leading-[1.05] font-semibold tracking-[0.01em] uppercase transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
+                          {label}
                         </span>
-                        <span className="block font-mono text-[0.62rem] tracking-[0.12em] text-bone-100/45 uppercase">{blurb}</span>
+                        <span className="block font-display text-[0.95rem] text-bone-100/55 italic">{blurb}</span>
                       </span>
                       <span aria-hidden className={cx('h-2 w-2 self-center transition-colors', isActive ? 'bg-mustard-300' : 'bg-transparent')} />
                     </>
@@ -75,10 +79,8 @@ export function Layout() {
         <div className="px-7 pt-6">
           <NavLink to="/guide" className="group flex items-end justify-between bg-mustard-300 p-4 text-ink-900 transition-colors hover:bg-mustard-200">
             <span>
-              <span className="block font-mono text-[0.62rem] tracking-[0.14em] uppercase">AI assistant</span>
-              <span className="block text-2xl leading-tight">
-                <T s="italic">Ask</T> <T s="circle">the</T> <T s="script">Guide</T>
-              </span>
+              <span className="block font-condensed text-[1.6rem] leading-none font-semibold uppercase">Ask the Guide</span>
+              <span className="block font-display text-[0.95rem] italic">AI assistant / Beta</span>
             </span>
             <ArrowUpRight size={22} aria-hidden className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </NavLink>
@@ -95,10 +97,10 @@ export function Layout() {
         </figure>
 
         <div className="mt-auto border-t border-bone-50/15 px-7 py-5">
-          <NavLink to="/settings" className={({ isActive }) => cx('flex items-center gap-2 font-mono text-[0.7rem] tracking-[0.12em] uppercase', isActive ? 'text-mustard-300' : 'text-bone-100/75 hover:text-bone-50')}>
+          <NavLink to="/settings" className={({ isActive }) => cx('flex items-center gap-2 font-condensed text-lg font-medium tracking-[0.02em] uppercase', isActive ? 'text-mustard-300' : 'text-bone-100/80 hover:text-bone-50')}>
             <CircleUserRound size={16} aria-hidden /> Profile & privacy
           </NavLink>
-          <p className="mt-3 font-mono text-[0.58rem] tracking-[0.12em] text-bone-100/35 uppercase">{month} · Edition {no}</p>
+          <p className="mt-1 font-display text-sm text-bone-100/45 italic">{month} / Edition {no}</p>
         </div>
       </aside>
 

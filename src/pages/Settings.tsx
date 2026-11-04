@@ -5,7 +5,9 @@ import { ACTIVITY_TYPES } from '@/lib/types';
 import { getGuideConsent, setGuideConsent } from '@/lib/guide';
 import { Chip, SectionHeader } from '@/components/ui';
 import { Mixed } from '@/components/Type';
-import { PHOTOS } from '@/lib/photos';
+import { PHOTOS, type Photo } from '@/lib/photos';
+
+const CREDITS: Photo[] = Object.values(PHOTOS);
 
 export function Settings() {
   const { data, updateProfile, resetAll, loadDemo } = useStore();
@@ -101,10 +103,15 @@ export function Settings() {
       <section className="card">
         <SectionHeader eyebrow="Colophon" title="Image credits" />
         <ul className="space-y-2 text-sm text-ink-700">
-          {Object.values(PHOTOS).map((p) => (
+          {CREDITS.map((p) => (
             <li key={p.page}>
               <a href={p.page} target="_blank" rel="noreferrer" className="underline underline-offset-2">{p.title}</a> — {p.author},{' '}
-              <a href={p.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">{p.license}</a>, via Wikimedia Commons.
+              {p.licenseUrl ? (
+                <a href={p.licenseUrl} target="_blank" rel="noreferrer" className="underline underline-offset-2">{p.license}</a>
+              ) : (
+                p.license
+              )}
+              , via Wikimedia Commons.
             </li>
           ))}
           <li>All other artwork — ridge, wall, holds, doodles and the ikat pattern — is original to CRUX.</li>

@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Figure, type Art } from './Figure';
 import { cx } from './ui';
 import { Mixed } from './Type';
+import type { Photo } from '@/lib/photos';
 
 type Block = 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone';
 
@@ -26,7 +27,9 @@ export function ModulePreview({
   block = 'mustard',
   plates = ['ridge-calm', 'holds', 'wall'],
   captions = ['Fig. a', 'Fig. b', 'Fig. c'],
+  photos,
 }: {
+  photos?: readonly [Photo, Photo, Photo];
   name: string;
   vol: string;
   tagline: string;
@@ -62,13 +65,13 @@ export function ModulePreview({
             <div className="mt-8 grid grid-cols-2 gap-3">
               {[0, 1].map((i) => (
                 <PlateDark key={i} dark={b.dark}>
-                  <Figure art={plates[i]} id={`${name}-${i}`} caption={captions[i]} frameClass="aspect-[4/5]" />
+                  <Figure art={plates[i]} id={`${name}-${i}`} caption={captions[i]} frameClass="aspect-[4/5]" photo={photos?.[i]} />
                 </PlateDark>
               ))}
             </div>
           </div>
           <PlateDark dark={b.dark}>
-            <Figure art={plates[2]} id={`${name}-2`} caption={captions[2]} frameClass="aspect-[4/5] sm:aspect-auto sm:h-[26rem]" />
+            <Figure art={plates[2]} id={`${name}-2`} caption={captions[2]} frameClass="aspect-[4/5] sm:aspect-auto sm:h-[26rem]" photo={photos?.[2]} />
           </PlateDark>
         </div>
       </header>
