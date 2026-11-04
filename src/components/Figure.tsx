@@ -3,6 +3,8 @@ import { Ridge } from './Ridge';
 import { ClimbingWall } from './ClimbingWall';
 import { Hold } from './Holds';
 import { cx } from './ui';
+import type { Photo } from '@/lib/photos';
+import { VintagePhoto } from './VintagePhoto';
 
 export type Art = 'ridge' | 'ridge-calm' | 'wall' | 'ikat' | 'holds';
 
@@ -37,7 +39,11 @@ export function Figure({
   className = '',
   frameClass = 'aspect-[4/5]',
   style,
+  photo,
+  photoClass,
 }: {
+  photo?: Photo;
+  photoClass?: string;
   art: Art;
   id: string;
   caption: string;
@@ -49,7 +55,7 @@ export function Figure({
   return (
     <figure className={className} style={style}>
       <div className={cx('grain overflow-hidden bg-ink-900', frameClass)}>
-        <ArtFill art={art} id={id} />
+        {photo ? <VintagePhoto photo={photo} fallback={art} id={id} className={photoClass} /> : <ArtFill art={art} id={id} />}
       </div>
       <figcaption className="mt-2 flex items-baseline gap-2 font-display text-[0.95rem] leading-tight text-ink-800">
         {index && <span className="font-mono text-[0.6rem] tracking-[0.12em] text-ink-500">{index}</span>}

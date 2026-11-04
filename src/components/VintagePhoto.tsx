@@ -1,28 +1,21 @@
 import { useState } from 'react';
-import { Ridge } from './Ridge';
+import type { Photo } from '@/lib/photos';
+import { ArtFill, type Art } from './Figure';
+import { cx } from './ui';
 
-/**
- * The poster photograph: a public-domain vintage climbing photo, served by Wikimedia Commons.
- * Falls back to the ridge artwork if it cannot load (offline, blocked network).
- */
-export const VINTAGE_PHOTO = {
-  src: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Group_of_men_and_women_climbing_Paradise_Glacier_in_Mt._Rainier_National_Park%2C_Washington.jpg',
-  alt: 'Vintage photograph of a roped party of women and men climbing Paradise Glacier on Mount Rainier, around 1911–1920',
-  credit: 'Paradise Glacier, Mt. Rainier, c. 1911–1920. Unknown photographer. Public domain, via Wikimedia Commons.',
-  page: 'https://commons.wikimedia.org/wiki/File:Group_of_men_and_women_climbing_Paradise_Glacier_in_Mt._Rainier_National_Park,_Washington.jpg',
-};
-
-export function VintagePhoto() {
+/** A vintage photograph that falls back to illustrated artwork if it cannot load (offline, blocked network). */
+export function VintagePhoto({ photo, fallback = 'ridge', id, className = '' }: { photo: Photo; fallback?: Art; id: string; className?: string }) {
   const [failed, setFailed] = useState(false);
-  if (failed) return <Ridge id="poster" align="xMaxYMax" className="h-full w-full" />;
+  if (failed) return <ArtFill art={fallback} id={id} />;
   return (
     <img
-      src={VINTAGE_PHOTO.src}
-      alt={VINTAGE_PHOTO.alt}
+      src={photo.src}
+      alt={photo.alt}
       onError={() => setFailed(true)}
-      className="h-full w-full object-cover contrast-[1.08] sepia-[0.35]"
-      loading="eager"
+      className={cx('h-full w-full object-cover', className)}
+      loading="lazy"
       decoding="async"
+      referrerPolicy="no-referrer"
     />
   );
 }

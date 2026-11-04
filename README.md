@@ -82,5 +82,10 @@ src/
 
 ## Image credits
 
-- **Poster photo (Home):** *Group of men and women climbing Paradise Glacier in Mt. Rainier National Park, Washington*, c. 1911–1920, unknown photographer. Public domain. Loaded from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Group_of_men_and_women_climbing_Paradise_Glacier_in_Mt._Rainier_National_Park,_Washington.jpg). If it can't load, the app falls back to the illustrated ridge (`VintagePhoto.tsx`).
-- All other artwork (ridge, climbing wall, holds, doodles and the ikat pattern) is original and generated in code.
+Vintage climbing photos are loaded from Wikimedia Commons and credited in-app under **Profile & privacy → Image credits**:
+
+- [Smith Rock Climber, 1989](https://commons.wikimedia.org/wiki/File:Smith_Rock_Climber_05-1989.jpg), Tequask, CC BY-SA 4.0 (Home poster)
+- [Climber in a hanging traverse, Ostervorturm (Schrammsteine), c. 1965](https://commons.wikimedia.org/wiki/File:Fotothek_df_ps_0000628_Sport_%5E_Felsen.jpg), Richard Peter / Deutsche Fotothek, CC BY-SA 3.0 DE
+- [Smith Rock Climber, 1987](https://commons.wikimedia.org/wiki/File:Smith_Rock_Climber_11-1987.jpg), Tequask, CC BY-SA 4.0
+
+If a photo can't load, the app falls back to its original illustrated artwork (`VintagePhoto.tsx`). Everything else (ridge, wall, holds, doodles, the ikat pattern) is original and generated in code.

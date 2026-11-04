@@ -4,7 +4,8 @@ import { formatLongDate, greeting } from '@/lib/date';
 import { Figure } from '@/components/Figure';
 import { Marquee } from '@/components/Marquee';
 import { PosterWord, SpacedLetters } from '@/components/PosterWord';
-import { VINTAGE_PHOTO, VintagePhoto } from '@/components/VintagePhoto';
+import { VintagePhoto } from '@/components/VintagePhoto';
+import { PHOTOS } from '@/lib/photos';
 
 const MOOD = ['very low', 'low', 'okay', 'good', 'great'];
 const ENERGY = ['drained', 'low', 'steady', 'strong', 'charged'];
@@ -36,7 +37,7 @@ export function Hero() {
         <div className="grain border-[10px] border-poster-frame bg-poster-green p-[5%] text-poster-red [container-type:inline-size]">
           <div className="relative mx-auto w-[86%]">
             <div className="aspect-[4/5] overflow-hidden bg-ink-900 sm:aspect-[5/4]">
-              <VintagePhoto />
+              <VintagePhoto photo={PHOTOS.smith89} id="poster" className="contrast-[1.05] saturate-[0.9]" />
             </div>
             <h1 className="relative -mt-[17cqw] text-poster-red">
               <span className="sr-only">Good {timeWord}{name ? `, ${name}` : ''}</span>
@@ -47,16 +48,13 @@ export function Hero() {
             <p className="text-justify font-poster text-[max(0.7rem,3.1cqw)] leading-[1.12] uppercase">{blurb}</p>
           </div>
           <SpacedLetters text="Train · Fuel · Thrive" className="mx-auto mt-[2cqw] w-[94%] text-[max(0.75rem,3.6cqw)]" />
-          <p className="mx-auto mt-[2cqw] w-[94%] font-mono text-[max(0.5rem,1.7cqw)] text-bone-100/70">
-            Photo: <a href={VINTAGE_PHOTO.page} target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">{VINTAGE_PHOTO.credit}</a>
-          </p>
         </div>
 
         {/* ── Plates ── */}
         <div className="flex flex-col justify-between gap-6">
           <div className="grid grid-cols-2 items-start gap-3 lg:grid-cols-1">
-            <Figure art="ridge" id="hero-a" index="01" caption="The crux, golden hour" frameClass="aspect-[4/3]" />
-            <Figure art="wall" id="hero-b" index="02" caption="Project, V4 — the gym" frameClass="aspect-[4/3]" className="mt-10 lg:mt-0" />
+            <Figure art="ridge" id="hero-a" index="01" caption="Hanging traverse, Saxon Switzerland, c. 1965" frameClass="aspect-[4/3]" photo={PHOTOS.traverse65} photoClass="grayscale sepia-[0.2] contrast-[1.1]" />
+            <Figure art="wall" id="hero-b" index="02" caption="Smith Rock, Oregon — Kodachrome, 1987" frameClass="aspect-[4/3]" className="mt-10 lg:mt-0" photo={PHOTOS.smith87} />
           </div>
           {!c && (
             <a href="#checkin" className="btn-primary self-start">
