@@ -6,7 +6,7 @@ import { Pill, SectionHeader, cx } from '@/components/ui';
 
 const DURATIONS = [15, 30, 45, 60, 90];
 const INTENSITY: Intensity[] = ['easy', 'moderate', 'hard'];
-const intensityTone = { easy: 'sage', moderate: 'lavender', hard: 'rose' } as const;
+const intensityTone = { easy: 'moss', moderate: 'mauve', hard: 'clay' } as const;
 
 export function WorkoutsCard() {
   const { data, today, addWorkout, toggleWorkout, removeWorkout } = useStore();
@@ -20,7 +20,7 @@ export function WorkoutsCard() {
   return (
     <section className="card" aria-label="Planned workouts">
       <SectionHeader
-        eyebrow="Planned"
+        eyebrow="Session plan"
         title="Today’s training"
         icon={<Dumbbell size={20} aria-hidden />}
         action={
@@ -32,31 +32,31 @@ export function WorkoutsCard() {
         }
       />
 
-      {items.length === 0 && !adding && <p className="text-charcoal-600">Nothing planned. Rest is training too — or tap <strong>Plan</strong> to add a session.</p>}
+      {items.length === 0 && !adding && <p className="text-ink-600">Nothing planned. Rest is training too — or tap <strong>Plan</strong> to add a session.</p>}
 
       <ul className="space-y-2">
         {items.map((w) => (
-          <li key={w.id} className={cx('flex items-center gap-3 rounded-2xl border p-3', w.completed ? 'border-sage-200 bg-sage-50' : 'border-cream-300 bg-white')}>
+          <li key={w.id} className={cx('flex items-center gap-3 rounded-2xl border p-3', w.completed ? 'border-clay-200 bg-clay-50' : 'border-bone-300 bg-white')}>
             <button
               onClick={() => toggleWorkout(w.id)}
               aria-pressed={w.completed}
               aria-label={`${w.completed ? 'Mark not done' : 'Mark done'}: ${w.title || w.type}`}
               className={cx(
                 'grid h-10 w-10 shrink-0 place-items-center rounded-full border-2',
-                w.completed ? 'border-sage-600 bg-sage-600 text-white' : 'border-sage-300 text-transparent hover:border-sage-500',
+                w.completed ? 'border-clay-600 bg-clay-600 text-white' : 'border-ink-300 text-transparent hover:border-clay-500',
               )}
             >
               <Check size={18} strokeWidth={3} aria-hidden />
             </button>
             <div className="min-w-0 flex-1">
-              <p className={cx('truncate font-semibold', w.completed && 'text-charcoal-500')}>{w.title || w.type}</p>
-              <p className="flex flex-wrap items-center gap-2 text-sm text-charcoal-500">
+              <p className={cx('truncate font-semibold', w.completed && 'text-ink-500')}>{w.title || w.type}</p>
+              <p className="flex flex-wrap items-center gap-2 text-sm text-ink-500">
                 <span>{w.type}</span>
                 <span className="flex items-center gap-1"><Clock size={13} aria-hidden /> {w.durationMin} min</span>
                 <Pill tone={intensityTone[w.intensity]}>{w.intensity}</Pill>
               </p>
             </div>
-            <button onClick={() => removeWorkout(w.id)} aria-label={`Delete ${w.title || w.type}`} className="grid h-9 w-9 place-items-center rounded-full text-charcoal-400 hover:bg-cream-200 hover:text-charcoal-700">
+            <button onClick={() => removeWorkout(w.id)} aria-label={`Delete ${w.title || w.type}`} className="grid h-9 w-9 place-items-center rounded-full text-ink-400 hover:bg-bone-200 hover:text-ink-700">
               <Trash2 size={16} aria-hidden />
             </button>
           </li>
@@ -65,7 +65,7 @@ export function WorkoutsCard() {
 
       {adding && (
         <form
-          className="mt-3 space-y-4 rounded-2xl bg-cream-200/50 p-4"
+          className="mt-3 space-y-4 rounded-2xl bg-bone-200/50 p-4"
           onSubmit={(e) => {
             e.preventDefault();
             addWorkout({ date: today, type, title: title.trim(), durationMin: duration, intensity });
@@ -74,34 +74,34 @@ export function WorkoutsCard() {
           }}
         >
           <div className="grid gap-3 sm:grid-cols-2">
-            <label className="block text-sm font-semibold text-charcoal-700">
+            <label className="block text-sm font-semibold text-ink-700">
               Activity
               <select className="input mt-1" value={type} onChange={(e) => setType(e.target.value as ActivityType)}>
                 {ACTIVITY_TYPES.map((t) => <option key={t}>{t}</option>)}
               </select>
             </label>
-            <label className="block text-sm font-semibold text-charcoal-700">
-              Name <span className="font-normal text-charcoal-500">(optional)</span>
+            <label className="block text-sm font-semibold text-ink-700">
+              Name <span className="font-normal text-ink-500">(optional)</span>
               <input className="input mt-1" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Overhang projecting" maxLength={60} />
             </label>
           </div>
           <fieldset>
-            <legend className="mb-2 text-sm font-semibold text-charcoal-700">Duration</legend>
+            <legend className="mb-2 text-sm font-semibold text-ink-700">Duration</legend>
             <div className="flex flex-wrap gap-2">
               {DURATIONS.map((d) => (
                 <button key={d} type="button" aria-pressed={duration === d} onClick={() => setDuration(d)}
-                  className={cx('min-h-10 rounded-full border px-4 text-sm font-semibold', duration === d ? 'border-sage-700 bg-sage-700 text-white' : 'border-cream-300 bg-white text-charcoal-600')}>
+                  className={cx('min-h-10 rounded-full border px-4 text-sm font-semibold', duration === d ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
                   {d} min
                 </button>
               ))}
             </div>
           </fieldset>
           <fieldset>
-            <legend className="mb-2 text-sm font-semibold text-charcoal-700">Intensity</legend>
+            <legend className="mb-2 text-sm font-semibold text-ink-700">Intensity</legend>
             <div className="grid grid-cols-3 gap-2">
               {INTENSITY.map((i) => (
                 <button key={i} type="button" aria-pressed={intensity === i} onClick={() => setIntensity(i)}
-                  className={cx('min-h-11 rounded-xl border text-sm font-semibold capitalize', intensity === i ? 'border-sage-700 bg-sage-700 text-white' : 'border-cream-300 bg-white text-charcoal-600')}>
+                  className={cx('min-h-11 rounded-xl border text-sm font-semibold capitalize', intensity === i ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
                   {i}
                 </button>
               ))}

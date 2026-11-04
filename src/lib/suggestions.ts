@@ -9,7 +9,7 @@ import type { CheckIn, PainArea, PlannedWorkout } from './types';
  *  - pain always narrows what we suggest and points to a professional if it persists
  */
 
-export type Tone = 'sage' | 'lavender' | 'rose' | 'cream';
+export type Tone = 'moss' | 'mauve' | 'clay' | 'bone';
 
 export interface Suggestion {
   id: string;
@@ -41,7 +41,7 @@ export function recoverySuggestions(
         id: 'checkin',
         title: 'Check in to tailor today',
         body: 'Log mood, energy, sleep and any pain. Suggestions adapt to how you actually feel — not to a calendar.',
-        tone: 'cream',
+        tone: 'bone',
       },
     ];
   }
@@ -50,13 +50,13 @@ export function recoverySuggestions(
 
   if (checkIn.pain.length) {
     checkIn.pain.forEach((area) =>
-      out.push({ id: `pain-${area}`, title: `Go easy on your ${area.toLowerCase()}`, body: PAIN_GUIDANCE[area], tone: 'rose' }),
+      out.push({ id: `pain-${area}`, title: `Go easy on your ${area.toLowerCase()}`, body: PAIN_GUIDANCE[area], tone: 'clay' }),
     );
     out.push({
       id: 'pain-pro',
       title: 'Pain that lingers deserves attention',
       body: 'If pain is sharp, swelling, getting worse, or lasts more than a few days, see a physiotherapist or doctor before training through it.',
-      tone: 'rose',
+      tone: 'clay',
     });
   }
 
@@ -65,7 +65,7 @@ export function recoverySuggestions(
       id: 'sleep',
       title: 'Short night',
       body: 'With less sleep, a longer warm-up and moderate intensity may feel better. A short nap or earlier night can help tomorrow.',
-      tone: 'lavender',
+      tone: 'mauve',
     });
   }
 
@@ -74,7 +74,7 @@ export function recoverySuggestions(
       id: 'energy',
       title: 'Low energy is useful information',
       body: 'A lighter session, mobility, or a walk still counts. You can always do more once you are warmed up — or call it a rest day.',
-      tone: 'lavender',
+      tone: 'mauve',
     });
   }
 
@@ -83,7 +83,7 @@ export function recoverySuggestions(
       id: 'stress',
       title: 'Take the edge off',
       body: 'Try 3–5 minutes of slow breathing (longer exhale than inhale) before training or your next task.',
-      tone: 'lavender',
+      tone: 'mauve',
     });
   }
 
@@ -93,7 +93,7 @@ export function recoverySuggestions(
       id: 'after-hard',
       title: 'Recovering from a hard session',
       body: 'Yesterday was intense. Prioritise a proper meal, water and gentle mobility; save max efforts for when you feel fresh.',
-      tone: 'sage',
+      tone: 'moss',
     });
   }
 
@@ -102,7 +102,7 @@ export function recoverySuggestions(
       id: 'good',
       title: 'Feeling steady',
       body: 'Warm up progressively, build intensity gradually, and finish with a few minutes of stretching.',
-      tone: 'sage',
+      tone: 'moss',
     });
   }
 
@@ -120,9 +120,9 @@ export function fuelReminders(todaysWorkouts: PlannedWorkout[]): Suggestion[] {
       id: 'pre',
       title: `Before ${first.title || first.type}`,
       body: 'Have a meal or snack with carbohydrates and some protein a couple of hours beforehand, or something light and easy closer to the session.',
-      tone: 'sage',
+      tone: 'moss',
     });
-    out.push({ id: 'water', title: 'Pack water', body: 'Put a filled bottle in your bag now so future-you does not have to remember.', tone: 'cream' });
+    out.push({ id: 'water', title: 'Pack water', body: 'Put a filled bottle in your bag now so future-you does not have to remember.', tone: 'bone' });
   }
 
   if (done.length || upcoming.length) {
@@ -130,14 +130,14 @@ export function fuelReminders(todaysWorkouts: PlannedWorkout[]): Suggestion[] {
       id: 'post',
       title: 'After training',
       body: 'Plan a meal with protein and carbohydrates in the hours after. A pre-decided “default” recovery meal removes a decision.',
-      tone: 'lavender',
+      tone: 'mauve',
     });
   } else {
     out.push({
       id: 'rest',
       title: 'Rest days need fuel too',
       body: 'Regular meals support recovery. Set a reminder for lunch if hyperfocus tends to make you skip it.',
-      tone: 'sage',
+      tone: 'moss',
     });
   }
 
@@ -145,7 +145,7 @@ export function fuelReminders(todaysWorkouts: PlannedWorkout[]): Suggestion[] {
     id: 'snack',
     title: 'Grab-and-go backup',
     body: 'Keep one no-prep snack in your bag or desk for days that get away from you.',
-    tone: 'cream',
+    tone: 'bone',
   });
 
   return out;

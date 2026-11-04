@@ -7,7 +7,7 @@ export function Cycle() {
   return (
     <ModulePreview
       name="CYCLE"
-      accent="rose"
+      accent="clay"
       icon={<CalendarHeart size={24} aria-hidden />}
       tagline="Menstrual health tracking that puts your own experience first."
       features={[
@@ -27,7 +27,7 @@ export function Mind() {
   return (
     <ModulePreview
       name="MIND"
-      accent="lavender"
+      accent="mauve"
       icon={<Brain size={24} aria-hidden />}
       tagline="ADHD-friendly focus, mood and organisation — fewer decisions, more done."
       features={['Daily focus tracking', 'Mood, stress and sleep logs', 'Daily task planner', 'Simple, repeatable routines', 'Gentle reminders', 'Progress visualisation']}
@@ -88,21 +88,21 @@ export function Train() {
   const t = TRAIN_TABS.find((x) => x.id === tab)!;
   return (
     <div className="space-y-5">
-      <div role="tablist" aria-label="Train sections" className="grid grid-cols-3 gap-1 rounded-full bg-cream-200 p-1">
+      <div role="tablist" aria-label="Train sections" className="grid grid-cols-3 gap-1 rounded-full bg-ink-900 p-1.5">
         {TRAIN_TABS.map((x) => (
           <button
             key={x.id}
             role="tab"
             aria-selected={tab === x.id}
             onClick={() => setTab(x.id)}
-            className={cx('min-h-11 rounded-full text-sm font-semibold transition-colors', tab === x.id ? 'bg-white text-sage-800 shadow-sm' : 'text-charcoal-600')}
+            className={cx('min-h-11 rounded-full text-sm font-semibold transition-colors', tab === x.id ? 'bg-bone-50 text-ink-900 shadow-sm' : 'text-bone-100/70 hover:text-bone-50')}
           >
             {x.label}
           </button>
         ))}
       </div>
       <div role="tabpanel">
-        <ModulePreview key={t.id} name={t.label.toUpperCase()} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />
+        <ModulePreview key={t.id} art={t.id === 'climb' ? 'wall' : 'ridge'} name={t.label.toUpperCase()} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />
       </div>
     </div>
   );

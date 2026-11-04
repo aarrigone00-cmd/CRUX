@@ -13,7 +13,7 @@ function NotFound() {
   return (
     <div className="card text-center">
       <h1 className="font-display text-2xl font-semibold">Off route</h1>
-      <p className="mt-1 text-charcoal-600">That page doesn’t exist.</p>
+      <p className="mt-1 text-ink-600">That page doesn’t exist.</p>
       <Link to="/" className="btn-primary mt-4">Back home</Link>
     </div>
   );

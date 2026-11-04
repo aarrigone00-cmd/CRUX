@@ -21,16 +21,16 @@ export function Settings() {
 
   return (
     <div className="space-y-5">
-      <h1 className="font-display text-3xl font-semibold">Profile & privacy</h1>
+      <h1 className="display-italic text-4xl font-medium">Profile & privacy</h1>
 
       <section className="card space-y-4">
         <SectionHeader title="Profile" icon={<UserRound size={20} aria-hidden />} />
-        <label className="block text-sm font-semibold text-charcoal-700">
+        <label className="block text-sm font-semibold text-ink-700">
           What should we call you?
           <input className="input mt-1" value={data.profile.displayName} onChange={(e) => updateProfile({ displayName: e.target.value })} maxLength={40} placeholder="First name or nickname" />
         </label>
         <fieldset>
-          <legend className="mb-2 text-sm font-semibold text-charcoal-700">Activities you do most</legend>
+          <legend className="mb-2 text-sm font-semibold text-ink-700">Activities you do most</legend>
           <div className="flex flex-wrap gap-2">
             {ACTIVITY_TYPES.map((a) => {
               const on = data.profile.focusActivities.includes(a);
@@ -46,13 +46,13 @@ export function Settings() {
 
       <section className="card space-y-4">
         <SectionHeader title="Your data" icon={<Lock size={20} aria-hidden />} />
-        <p className="text-charcoal-700">
+        <p className="text-ink-700">
           Right now your data is stored <strong>only in this browser</strong> on this device. Nothing is sent to a server. Account sync with private, per-user storage arrives in the next phase.
         </p>
-        <label className="flex items-start gap-3 rounded-2xl bg-cream-200/50 p-3">
+        <label className="flex items-start gap-3 rounded-2xl bg-bone-200/50 p-3">
           <input
             type="checkbox"
-            className="mt-1 h-5 w-5 accent-[var(--color-sage-700)]"
+            className="mt-1 h-5 w-5 accent-[var(--color-moss-700)]"
             checked={guideConsent}
             onChange={(e) => {
               setGuideConsent(e.target.checked);
@@ -61,7 +61,7 @@ export function Settings() {
           />
           <span>
             <span className="font-semibold">CRUX GUIDE consent</span>
-            <span className="block text-sm text-charcoal-600">Allow messages you type in CRUX GUIDE to be sent to Google Gemini via CRUX’s server.</span>
+            <span className="block text-sm text-ink-600">Allow messages you type in CRUX GUIDE to be sent to Google Gemini via CRUX’s server.</span>
           </span>
         </label>
         <div className="flex flex-wrap gap-2">
@@ -71,16 +71,16 @@ export function Settings() {
           <button className="btn-secondary" onClick={loadDemo}>Load demo data</button>
         </div>
         {!confirming ? (
-          <button className="btn border border-rose-300 text-rose-700 hover:bg-rose-50" onClick={() => setConfirming(true)}>
+          <button className="btn border border-clay-300 text-clay-700 hover:bg-clay-50" onClick={() => setConfirming(true)}>
             <Trash2 size={16} aria-hidden /> Delete all my data
           </button>
         ) : (
-          <div role="alertdialog" aria-labelledby="del-title" className="rounded-2xl border border-rose-200 bg-rose-50 p-4">
-            <p id="del-title" className="font-semibold text-rose-700">Delete everything stored by CRUX on this device?</p>
-            <p className="text-sm text-rose-700">Check-ins, priorities, workouts and your profile will be removed. This can’t be undone.</p>
+          <div role="alertdialog" aria-labelledby="del-title" className="rounded-2xl border border-clay-200 bg-clay-50 p-4">
+            <p id="del-title" className="font-semibold text-clay-700">Delete everything stored by CRUX on this device?</p>
+            <p className="text-sm text-clay-700">Check-ins, priorities, workouts and your profile will be removed. This can’t be undone.</p>
             <div className="mt-3 flex gap-2">
               <button
-                className="btn bg-rose-600 text-white hover:bg-rose-700"
+                className="btn bg-clay-600 text-white hover:bg-clay-700"
                 onClick={() => {
                   resetAll();
                   setGuideConsent(false);
@@ -96,7 +96,7 @@ export function Settings() {
         )}
       </section>
 
-      <p className="text-center text-xs text-charcoal-500">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
+      <p className="text-center text-xs text-ink-500">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
     </div>
   );
 }

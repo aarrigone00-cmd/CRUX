@@ -38,6 +38,7 @@ On the Home screen, tap **Load demo data** to see a populated week.
 
 - **React 19, TypeScript and Vite.** Fast development server and production build.
 - **Tailwind CSS v4.** Design tokens live in `src/index.css`.
+- **Visual identity.** An editorial "desert stone" look: bone and sandstone, terracotta clay, oxblood, ochre, moss and dusty mauve, anchored by warm ink. It uses Fraunces italic display type, film-grain texture, a golden-hour ridge and climber artwork (`Ridge.tsx`), and hand-drawn climbing holds (`Holds.tsx`, `ClimbingWall.tsx`).
 - **React Router.** Five-tab bottom navigation on phones and a sidebar on desktop.
 - **Progressive Web App.** Includes a manifest, icons and a service worker (`public/sw.js`), so CRUX can be installed to the home screen and the app shell still loads offline.
 - **Supabase (Phase 2).** Provides Postgres, auth and row-level security.
@@ -51,7 +52,7 @@ A PWA is one codebase that runs on iPhone, Android and laptop. It can be shared 
 
 ```
 src/
-  index.css            design tokens (sage, cream, lavender, rose, charcoal)
+  index.css            design tokens (bone, clay, oxblood, ochre, moss, mauve, ink)
   main.tsx             routes
   components/          Layout/navigation, UI primitives, charts, logo
   data/store.tsx       app state (Phase 1: localStorage; Phase 2: Supabase)

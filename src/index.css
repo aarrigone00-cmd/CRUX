@@ -1,56 +1,76 @@
 @import 'tailwindcss';
 
 /* ───────────── CRUX design tokens ─────────────
-   Sage green · Warm cream · Muted lavender · Dusty rose · Charcoal
-   Text colours on cream are chosen to meet WCAG AA (4.5:1) for body text. */
+   Editorial desert-stone palette: bone & sandstone, terracotta clay / corten rust,
+   oxblood, ochre, moss and dusty mauve, anchored by warm ink.
+   Body-text pairings meet WCAG AA (4.5:1). */
 @theme {
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-display: 'Fraunces', ui-serif, Georgia, serif;
 
-  --color-cream-50: #fdfbf7;
-  --color-cream-100: #faf6ef;
-  --color-cream-200: #f3ecdf;
-  --color-cream-300: #e8dcc8;
+  --color-bone-50: #fbf7f1;
+  --color-bone-100: #f3ebdf;
+  --color-bone-200: #e9dccb;
+  --color-bone-300: #dbc8b0;
 
-  --color-sage-50: #f2f5ef;
-  --color-sage-100: #e2e9dc;
-  --color-sage-200: #c7d4bc;
-  --color-sage-300: #a9bb9a;
-  --color-sage-400: #8a9f7a;
-  --color-sage-500: #6f8560;
-  --color-sage-600: #5a6e4d;
-  --color-sage-700: #48583e;
-  --color-sage-800: #3a4733;
+  --color-ink-300: #a89e94;
+  --color-ink-400: #867b70;
+  --color-ink-500: #675d54;
+  --color-ink-600: #4d453f;
+  --color-ink-700: #37302b;
+  --color-ink-800: #25201c;
+  --color-ink-900: #171310;
 
-  --color-lavender-50: #f5f2f9;
-  --color-lavender-100: #ebe5f3;
-  --color-lavender-200: #d7cce6;
-  --color-lavender-300: #bcaad3;
-  --color-lavender-400: #9e89bb;
-  --color-lavender-500: #806b9f;
-  --color-lavender-600: #6a5785;
-  --color-lavender-700: #56466c;
+  --color-clay-50: #fbf0ea;
+  --color-clay-100: #f5ddd0;
+  --color-clay-200: #ebbda4;
+  --color-clay-300: #dc9874;
+  --color-clay-400: #cb744c;
+  --color-clay-500: #b45831;
+  --color-clay-600: #984524;
+  --color-clay-700: #7a361d;
+  --color-clay-800: #5c2916;
 
-  --color-rose-50: #fbf3f2;
-  --color-rose-100: #f6e4e2;
-  --color-rose-200: #ecc9c5;
-  --color-rose-300: #dda7a2;
-  --color-rose-400: #c9847f;
-  --color-rose-500: #b06a66;
-  --color-rose-600: #925452;
-  --color-rose-700: #774443;
+  --color-oxblood-400: #a33a35;
+  --color-oxblood-500: #7e2220;
+  --color-oxblood-600: #641919;
+  --color-oxblood-700: #4a1213;
 
-  --color-charcoal-300: #a8a49d;
-  --color-charcoal-400: #807b73;
-  --color-charcoal-500: #625e57;
-  --color-charcoal-600: #4a4743;
-  --color-charcoal-700: #393734;
-  --color-charcoal-800: #2b2a28;
-  --color-charcoal-900: #1f1e1d;
+  --color-ochre-100: #f6e8c6;
+  --color-ochre-200: #efd59c;
+  --color-ochre-300: #e2bb66;
+  --color-ochre-400: #d09c3e;
+  --color-ochre-500: #b5832a;
+  --color-ochre-600: #8f6520;
 
-  --radius-card: 1.25rem;
-  --shadow-soft: 0 1px 2px rgb(43 42 40 / 0.04), 0 4px 16px -4px rgb(43 42 40 / 0.08);
-  --shadow-lift: 0 2px 4px rgb(43 42 40 / 0.05), 0 12px 32px -8px rgb(43 42 40 / 0.14);
+  --color-moss-50: #eef1eb;
+  --color-moss-100: #dce3d5;
+  --color-moss-200: #bcc8b2;
+  --color-moss-300: #95a78a;
+  --color-moss-400: #718667;
+  --color-moss-500: #566b4e;
+  --color-moss-600: #43563d;
+  --color-moss-700: #33442f;
+  --color-moss-800: #253224;
+
+  --color-mauve-50: #f6f0f1;
+  --color-mauve-100: #ebdfe2;
+  --color-mauve-200: #d8c2c8;
+  --color-mauve-300: #bea0aa;
+  --color-mauve-400: #a07e8a;
+  --color-mauve-500: #81606d;
+  --color-mauve-600: #694c58;
+  --color-mauve-700: #533b46;
+
+  --radius-card: 1.5rem;
+  --shadow-soft: 0 1px 2px rgb(23 19 16 / 0.05), 0 8px 24px -10px rgb(60 30 15 / 0.18);
+  --shadow-lift: 0 2px 6px rgb(23 19 16 / 0.08), 0 24px 48px -16px rgb(60 25 10 / 0.35);
+  --animate-rise: rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 }
 
 @layer base {
@@ -59,16 +79,31 @@
     text-size-adjust: 100%;
   }
   body {
-    @apply bg-cream-100 font-sans text-charcoal-800 antialiased;
+    @apply bg-bone-100 font-sans text-ink-800 antialiased;
     font-size: 1rem;
     line-height: 1.6;
+    background-image:
+      radial-gradient(70rem 36rem at 115% -15%, rgb(203 116 76 / 0.20), transparent 60%),
+      radial-gradient(50rem 30rem at -25% 35%, rgb(226 187 102 / 0.16), transparent 60%),
+      radial-gradient(45rem 30rem at 120% 95%, rgb(126 34 32 / 0.10), transparent 60%);
+    background-attachment: fixed;
+  }
+  /* film-grain / sandstone texture over the whole page */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.045;
+    background-image: var(--grain);
   }
   h1, h2, h3 {
-    @apply text-charcoal-900;
-    line-height: 1.25;
+    @apply text-ink-900;
+    line-height: 1.15;
   }
   :focus-visible {
-    outline: 3px solid var(--color-lavender-400);
+    outline: 3px solid var(--color-clay-400);
     outline-offset: 2px;
     border-radius: 0.5rem;
   }
@@ -80,23 +115,63 @@
   }
 }
 
+:root {
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 @utility btn {
-  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold tracking-wide transition-all disabled:cursor-not-allowed disabled:opacity-40;
 }
 
 @layer components {
   .card {
-    @apply rounded-[var(--radius-card)] border border-cream-300/60 bg-cream-50 p-5;
+    @apply relative rounded-[var(--radius-card)] border border-bone-300/50 bg-bone-50/90 p-5 sm:p-6;
     box-shadow: var(--shadow-soft);
   }
-  .btn-primary { @apply btn bg-sage-700 text-white hover:bg-sage-800; }
-  .btn-secondary { @apply btn border border-sage-300 bg-transparent text-sage-800 hover:bg-sage-50; }
-  .btn-ghost { @apply btn px-3 text-charcoal-600 hover:bg-cream-200; }
-  .input {
-    @apply min-h-11 w-full rounded-xl border border-cream-300 bg-white px-4 text-charcoal-800 placeholder:text-charcoal-400 focus:border-sage-400 focus:outline-none;
+  /* Dark editorial panel */
+  .card-ink {
+    @apply relative overflow-hidden rounded-[var(--radius-card)] bg-ink-900 p-5 text-bone-100 sm:p-6;
+    box-shadow: var(--shadow-lift);
   }
-  .eyebrow { @apply text-xs font-semibold tracking-[0.14em] text-charcoal-500 uppercase; }
+  .card-ink h2, .card-ink h3 { @apply text-bone-50; }
+  .card-ink .eyebrow { @apply text-clay-300; }
+  .btn-primary { @apply btn bg-ink-900 text-bone-50 hover:bg-clay-700; }
+  .btn-accent { @apply btn bg-clay-600 text-white hover:bg-clay-700; }
+  .btn-secondary { @apply btn border border-ink-300/60 bg-transparent text-ink-800 hover:border-ink-800; }
+  .btn-ghost { @apply btn px-3 text-ink-600 hover:bg-bone-200; }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-bone-300 bg-white/80 px-4 text-ink-800 placeholder:text-ink-400 focus:border-clay-400 focus:outline-none;
+  }
+  .eyebrow { @apply text-[0.7rem] font-semibold tracking-[0.22em] text-clay-600 uppercase; }
+  .display-italic { @apply font-display italic; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
+}
+
+.grain { position: relative; }
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: var(--grain);
 }
 
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 .safe-top { padding-top: env(safe-area-inset-top); }
+
+/* Staggered entrance for dashboard sections */
+.rise > * { animation: var(--animate-rise); }
+.rise > *:nth-child(2) { animation-delay: 70ms; }
+.rise > *:nth-child(3) { animation-delay: 140ms; }
+.rise > *:nth-child(4) { animation-delay: 210ms; }
+.rise > *:nth-child(5) { animation-delay: 280ms; }
+.rise > *:nth-child(6) { animation-delay: 350ms; }
+.rise > *:nth-child(n + 7) { animation-delay: 420ms; }
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Organic, hold-like blob for icon tiles */
+.hold-blob { border-radius: 58% 42% 52% 48% / 46% 56% 44% 54%; }
