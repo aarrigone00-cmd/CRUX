@@ -11,7 +11,7 @@ export function Cycle() {
       vol="004"
       block="cocoa"
       plates={['ikat', 'ridge-calm', 'ridge']}
-      captions={['Oxblood warp', 'Dusk range', 'Your rhythm, your read']}
+      captions={['CRUX ikat print', 'Dusk range', 'Your rhythm, your read']}
       icon={<CalendarHeart size={24} aria-hidden />}
       tagline="Menstrual health tracking that puts your own experience first."
       features={[

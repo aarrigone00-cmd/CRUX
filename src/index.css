@@ -11,6 +11,10 @@
   --font-didone: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
   --font-script: 'Mrs Saint Delafield', 'Snell Roundhand', cursive;
   --font-brush: 'Mr Dafoe', 'Brush Script MT', cursive;
+  --font-poster: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
+  --color-poster-green: #1d6a3d;
+  --color-poster-red: #d7362b;
+  --color-poster-frame: #b8594b;
 
   /* paper */
   --color-bone-50: #fcfaf2;

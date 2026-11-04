@@ -3,21 +3,24 @@ import { useStore } from '@/data/store';
 import { formatLongDate, greeting } from '@/lib/date';
 import { Figure } from '@/components/Figure';
 import { Marquee } from '@/components/Marquee';
-import { T } from '@/components/Type';
+import { PosterWord, SpacedLetters } from '@/components/PosterWord';
+import { VINTAGE_PHOTO, VintagePhoto } from '@/components/VintagePhoto';
 
 const MOOD = ['very low', 'low', 'okay', 'good', 'great'];
 const ENERGY = ['drained', 'low', 'steady', 'strong', 'charged'];
 
-/** Home cover: statement headline, staggered figures with captions, and a ticker. */
+/** Home cover: a screen-print poster (photo + giant condensed word) beside captioned plates. */
 export function Hero() {
   const { data, today, todayCheckIn: c } = useStore();
-  const name = data.profile.displayName.trim() || 'you';
-  const [g1, ...rest] = greeting().split(' ');
-  const g2 = rest.join(' ');
-  const now = new Date();
-  const issueNo = String(Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86_400_000)).padStart(3, '0');
+  const name = data.profile.displayName.trim();
+  const [, ...rest] = greeting().split(' ');
+  const timeWord = rest.join(' ') || 'today';
   const workouts = data.workouts.filter((w) => w.date === today);
   const priorities = data.priorities.filter((p) => p.date === today);
+
+  const blurb = c
+    ? `Good ${timeWord}${name ? `, ${name}` : ''}. Feeling ${MOOD[c.mood - 1]}, energy ${ENERGY[c.energy - 1]}, ${c.sleepHours} hours of sleep. ${workouts.filter((w) => w.completed).length} of ${workouts.length} sessions sent, ${priorities.filter((p) => p.done).length} of ${priorities.length} priorities ticked. Chalk up, breathe, climb your own line — rest is training too.`
+    : `Good ${timeWord}${name ? `, ${name}` : ''}. Before anything else: how are you, really? A thirty-second check-in shapes everything below — training, recovery, fuel. Not a calendar, not a guess. Your body, today. Chalk up and begin.`;
 
   return (
     <header className="border border-ink-900/10 bg-bone-50 shadow-[var(--shadow-soft)]">
@@ -28,58 +31,42 @@ export function Hero() {
         <p className="eyebrow shrink-0">{formatLongDate()}</p>
       </div>
 
-      <div className="grid gap-8 px-5 pt-7 pb-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-10">
-        <div className="flex flex-col justify-between">
-          <h1 className="text-[2.5rem] leading-[1.22] text-oxblood-500 sm:text-[3.6rem]">
-            <T s="didone">{g1}</T> <T s="script">{g2},</T>
-            <br />
-            <T s="grotesk">{name}</T> <T s="circle">No.{issueNo}</T>
-            <br />
-            {c ? (
-              <>
-                <T s="italic">feeling</T> <T s="didone">{MOOD[c.mood - 1]}</T> <T s="circle">&</T>{' '}
-                <T s="script">{ENERGY[c.energy - 1]}</T>
-              </>
-            ) : (
-              <>
-                <T s="italic">how are you,</T> <T s="script">really?</T>
-              </>
-            )}
-          </h1>
+      <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1.45fr_1fr] lg:gap-8 lg:p-8">
+        {/* ── Poster ── */}
+        <div className="grain border-[10px] border-poster-frame bg-poster-green p-[5%] text-poster-red [container-type:inline-size]">
+          <div className="relative mx-auto w-[86%]">
+            <div className="aspect-[4/5] overflow-hidden bg-ink-900 sm:aspect-[5/4]">
+              <VintagePhoto />
+            </div>
+            <h1 className="relative -mt-[17cqw] text-poster-red">
+              <span className="sr-only">Good {timeWord}{name ? `, ${name}` : ''}</span>
+              <PosterWord word={timeWord} className="block h-[30cqw] w-full drop-shadow-[0_2px_0_rgb(0_0_0/0.15)]" />
+            </h1>
+          </div>
+          <div className="mx-auto mt-[3cqw] w-[94%] border-[2px] border-current p-[2cqw]">
+            <p className="text-justify font-poster text-[max(0.7rem,3.1cqw)] leading-[1.12] uppercase">{blurb}</p>
+          </div>
+          <SpacedLetters text="Train · Fuel · Thrive" className="mx-auto mt-[2cqw] w-[94%] text-[max(0.75rem,3.6cqw)]" />
+          <p className="mx-auto mt-[2cqw] w-[94%] font-mono text-[max(0.5rem,1.7cqw)] text-bone-100/70">
+            Photo: <a href={VINTAGE_PHOTO.page} target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">{VINTAGE_PHOTO.credit}</a>
+          </p>
+        </div>
 
-          {c ? (
-            <dl className="mt-8 grid grid-cols-3 border-t border-ink-900/15 pt-3">
-              <Index label="Sleep" value={`${c.sleepHours}h`} />
-              <Index label="Sessions" value={`${workouts.filter((w) => w.completed).length}/${workouts.length}`} />
-              <Index label="Priorities" value={`${priorities.filter((p) => p.done).length}/${priorities.length}`} />
-            </dl>
-          ) : (
-            <a href="#checkin" className="btn-primary mt-8 self-start">
+        {/* ── Plates ── */}
+        <div className="flex flex-col justify-between gap-6">
+          <div className="grid grid-cols-2 items-start gap-3 lg:grid-cols-1">
+            <Figure art="ridge" id="hero-a" index="01" caption="The crux, golden hour" frameClass="aspect-[4/3]" />
+            <Figure art="wall" id="hero-b" index="02" caption="Project, V4 — the gym" frameClass="aspect-[4/3]" className="mt-10 lg:mt-0" />
+          </div>
+          {!c && (
+            <a href="#checkin" className="btn-primary self-start">
               Chalk up — check in <ArrowDown size={14} aria-hidden />
             </a>
           )}
-        </div>
-
-        {/* staggered plates */}
-        <div className="grid grid-cols-[1.25fr_1fr] items-start gap-3 sm:gap-4">
-          <Figure art="ridge" id="hero-a" index="01" caption="The crux, golden hour" frameClass="aspect-[4/5]" />
-          <div className="mt-14 space-y-4 sm:mt-20">
-            <Figure art="wall" id="hero-b" index="02" caption="Project, V4" frameClass="aspect-square" />
-            <Figure art="ikat" id="hero-c" index="03" caption="Oxblood warp" frameClass="aspect-[5/3]" />
-          </div>
         </div>
       </div>
 
       <Marquee items={['Train. Fuel. Thrive.', 'Chalk up', 'Rest is training too', 'Send it', 'Fuel the climb', 'Listen to your body']} />
     </header>
-  );
-}
-
-function Index({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <dt className="eyebrow">{label}</dt>
-      <dd className="font-display text-3xl italic">{value}</dd>
-    </div>
   );
 }

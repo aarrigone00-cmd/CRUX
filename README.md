@@ -79,3 +79,8 @@ src/
 ## Deploying
 
 `netlify.toml` builds with `npm run build`, publishes `dist/`, and adds the single-page-app redirect.
+
+## Image credits
+
+- **Poster photo (Home):** *Group of men and women climbing Paradise Glacier in Mt. Rainier National Park, Washington*, c. 1911–1920, unknown photographer. Public domain. Loaded from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Group_of_men_and_women_climbing_Paradise_Glacier_in_Mt._Rainier_National_Park,_Washington.jpg). If it can't load, the app falls back to the illustrated ridge (`VintagePhoto.tsx`).
+- All other artwork (ridge, climbing wall, holds, doodles and the ikat pattern) is original and generated in code.
