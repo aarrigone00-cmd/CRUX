@@ -15,7 +15,7 @@ export interface Photo {
 const FRISSELL = 'Toni Frissell / Library of Congress';
 const PD = 'Public domain';
 const LOC = 'No known restrictions (Library of Congress)';
-const PHOTOCHROM = 'Photoglob / Detroit Publishing Co., Library of Congress';
+const DOCUMERICA = 'Public domain (U.S. EPA DOCUMERICA, National Archives)';
 const FOTOTHEK = { author: 'Richard Peter / Deutsche Fotothek', license: 'CC BY-SA 3.0 DE', licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/de/deed.en' };
 const BYSA4 = { license: 'CC BY-SA 4.0', licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/' };
 
@@ -109,14 +109,6 @@ export const PHOTOS = {
     license: PD,
     page: 'https://commons.wikimedia.org/wiki/File:Toni_Frissell,_Swim_fashion,_1950.jpg',
   },
-  weeki47: {
-    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Weeki_Wachee_spring_10079u.jpg/1280px-Weeki_Wachee_spring_10079u.jpg',
-    alt: 'Underwater view of a woman in a long gown floating in the clear water of Weeki Wachee Springs, Florida, 1947',
-    title: 'Weeki Wachee Spring, Florida, 1947',
-    author: 'Toni Frissell',
-    license: PD,
-    page: 'https://commons.wikimedia.org/wiki/File:Weeki_Wachee_spring_10079u.jpg',
-  },
   maiturm42: {
     src: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Fotothek_df_ps_0001742_Landschaften_%5E_H%C3%BCgellandschaften_-_Gebirgslandschaften_%5E.jpg',
     alt: 'Black-and-white photograph of a climber on the Maiturm sandstone tower, Saxon Switzerland, after 1945',
@@ -155,20 +147,28 @@ export const PHOTOS = {
     license: LOC,
     page: 'https://commons.wikimedia.org/wiki/File:Autumn_at_Sherrewogue,_St._James,_L.I._N.Y._(LOC)_-_Flickr_-_The_Library_of_Congress.jpg',
   },
-  arniAlp: {
-    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Engelberg_Valley%2C_Arni_Alp%2C_Bernese_Oberland%2C_Switzerland-LCCN2001702410.jpg/1280px-Engelberg_Valley%2C_Arni_Alp%2C_Bernese_Oberland%2C_Switzerland-LCCN2001702410.jpg',
-    alt: 'Hand-coloured photochrom of green alpine meadows at Arni Alp in the Engelberg Valley, Switzerland, around 1900',
-    title: 'Engelberg Valley, Arni Alp, Switzerland (photochrom, c. 1890–1900)',
-    author: PHOTOCHROM,
-    license: PD,
-    page: 'https://commons.wikimedia.org/wiki/File:Engelberg_Valley,_Arni_Alp,_Bernese_Oberland,_Switzerland-LCCN2001702410.jpg',
+  skagit73: {
+    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/NORTH_FORK_OF_THE_SKAGIT_RIVER_AND_THE_SKAGIT_VALLEY%2C_WITH_THE_CASCADE_MOUNTAINS_IN_THE_BACKGROUND_-_NARA_-_552318.jpg/1280px-NORTH_FORK_OF_THE_SKAGIT_RIVER_AND_THE_SKAGIT_VALLEY%2C_WITH_THE_CASCADE_MOUNTAINS_IN_THE_BACKGROUND_-_NARA_-_552318.jpg',
+    alt: 'The North Fork of the Skagit River winding through a green valley with the Cascade Mountains behind, 1973',
+    title: 'North Fork of the Skagit River and the Skagit Valley, 1973',
+    author: 'Doug Wilson, DOCUMERICA',
+    license: DOCUMERICA,
+    page: 'https://commons.wikimedia.org/wiki/File:NORTH_FORK_OF_THE_SKAGIT_RIVER_AND_THE_SKAGIT_VALLEY,_WITH_THE_CASCADE_MOUNTAINS_IN_THE_BACKGROUND_-_NARA_-_552318.jpg',
   },
-  lauterbrunnen: {
-    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Lauterbrunnen_Valley_and_Wengen%2C_Bernese_Oberland%2C_Switzerland-LCCN2001701217.jpg/1280px-Lauterbrunnen_Valley_and_Wengen%2C_Bernese_Oberland%2C_Switzerland-LCCN2001701217.jpg',
-    alt: 'Hand-coloured photochrom of the green Lauterbrunnen Valley and Wengen, Switzerland, around 1900',
-    title: 'Lauterbrunnen Valley and Wengen, Switzerland (photochrom, c. 1890–1900)',
-    author: PHOTOCHROM,
-    license: PD,
-    page: 'https://commons.wikimedia.org/wiki/File:Lauterbrunnen_Valley_and_Wengen,_Bernese_Oberland,_Switzerland-LCCN2001701217.jpg',
+  moose73: {
+    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/EARLY_FALL_MORNING_WITH_MIST_BELOW_COLVIN_MOUNTAIN_AT_LITTLE_MOOSE_LAKE%2C_NEAR_INDIAN_LAKE_AND_CEDAR_RIVER_FLOW_-_NARA_-_554752.jpg/1280px-EARLY_FALL_MORNING_WITH_MIST_BELOW_COLVIN_MOUNTAIN_AT_LITTLE_MOOSE_LAKE%2C_NEAR_INDIAN_LAKE_AND_CEDAR_RIVER_FLOW_-_NARA_-_554752.jpg',
+    alt: 'Early fall morning with mist below Colvin Mountain at Little Moose Lake in the Adirondacks, 1973',
+    title: 'Early fall morning, Little Moose Lake, Adirondacks, 1973',
+    author: 'Anne LaBastille, DOCUMERICA',
+    license: DOCUMERICA,
+    page: 'https://commons.wikimedia.org/wiki/File:EARLY_FALL_MORNING_WITH_MIST_BELOW_COLVIN_MOUNTAIN_AT_LITTLE_MOOSE_LAKE,_NEAR_INDIAN_LAKE_AND_CEDAR_RIVER_FLOW_-_NARA_-_554752.jpg',
+  },
+  hood73: {
+    src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/HOOD_RIVER_VALLEY_AND_THE_NORTHEAST_FACE_OF_MT._HOOD_SHOWING_THE_ELIOT%2C_COE_AND_LADD_GLACIERS_-_NARA_-_548094.jpg/1280px-HOOD_RIVER_VALLEY_AND_THE_NORTHEAST_FACE_OF_MT._HOOD_SHOWING_THE_ELIOT%2C_COE_AND_LADD_GLACIERS_-_NARA_-_548094.jpg',
+    alt: 'The green Hood River Valley beneath the snowy northeast face of Mount Hood, 1973',
+    title: 'Hood River Valley and the northeast face of Mt. Hood, 1973',
+    author: 'David Falconer, DOCUMERICA',
+    license: DOCUMERICA,
+    page: 'https://commons.wikimedia.org/wiki/File:HOOD_RIVER_VALLEY_AND_THE_NORTHEAST_FACE_OF_MT._HOOD_SHOWING_THE_ELIOT,_COE_AND_LADD_GLACIERS_-_NARA_-_548094.jpg',
   },
 } satisfies Record<string, Photo>;

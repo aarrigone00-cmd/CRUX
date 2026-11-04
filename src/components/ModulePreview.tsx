@@ -5,7 +5,7 @@ import { Mixed } from './Type';
 import type { Photo } from '@/lib/photos';
 import { Doodle } from './Doodle';
 
-type Block = 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone';
+export type Block = 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone' | 'red' | 'cobalt' | 'green' | 'ink';
 
 const BLOCK: Record<Block, { bg: string; dark: boolean }> = {
   mustard: { bg: 'bg-mustard-300', dark: false },
@@ -13,6 +13,10 @@ const BLOCK: Record<Block, { bg: string; dark: boolean }> = {
   cocoa: { bg: 'bg-cocoa-600', dark: true },
   clay: { bg: 'bg-clay-200', dark: false },
   bone: { bg: 'bg-bone-50', dark: false },
+  red: { bg: 'bg-poster-red', dark: true },
+  cobalt: { bg: 'bg-[#1f45b5]', dark: true },
+  green: { bg: 'bg-poster-green', dark: true },
+  ink: { bg: 'bg-ink-900', dark: true },
 };
 
 /**

@@ -8,12 +8,12 @@ import { cx } from './ui';
 export type TypeStyle = 'didone' | 'script' | 'grotesk' | 'italic' | 'circle';
 
 export const TYPE: Record<TypeStyle, string> = {
-  didone: 'font-didone font-normal uppercase tracking-[-0.01em] not-italic',
-  grotesk: 'font-grotesk font-medium uppercase tracking-[-0.035em] not-italic',
-  script: 'font-script font-normal normal-case not-italic inline-block -rotate-[4deg] text-[1.5em] leading-[0.5] tracking-normal px-[0.04em] translate-y-[0.06em]',
-  italic: 'font-display italic font-normal normal-case',
+  didone: 'font-poster font-normal uppercase not-italic',
+  grotesk: 'font-poster font-normal uppercase not-italic',
+  script: 'font-poster font-normal uppercase not-italic',
+  italic: 'font-poster font-normal uppercase not-italic',
   circle:
-    'inline-grid h-[1.75em] min-w-[1.75em] place-items-center rounded-full border-[0.09em] border-current px-[0.3em] align-[0.12em] font-grotesk text-[0.4em] font-medium uppercase tracking-tight not-italic leading-none',
+    'inline-grid h-[1.6em] min-w-[1.6em] place-items-center rounded-full border-[0.09em] border-current px-[0.3em] align-[0.12em] font-poster text-[0.42em] uppercase tracking-tight not-italic leading-none',
 };
 
 export function T({ s, children, className }: { s: TypeStyle; children: ReactNode; className?: string }) {

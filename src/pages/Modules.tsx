@@ -4,6 +4,7 @@ import { ModulePreview } from '@/components/ModulePreview';
 import { cx } from '@/components/ui';
 import type { Art } from '@/components/Figure';
 import { PHOTOS, type Photo } from '@/lib/photos';
+import type { Block } from '@/components/ModulePreview';
 
 export function Cycle() {
   return (
@@ -34,10 +35,10 @@ export function Mind() {
     <ModulePreview
       name="Mind"
       vol="005"
-      block="sky"
+      block="ink"
       plates={['holds', 'ikat', 'ridge-calm']}
-      captions={['Afloat, Weeki Wachee, 1947', 'Lauterbrunnen Valley, c. 1900', 'Arni Alp, Engelberg, c. 1900']}
-      photos={[PHOTOS.weeki47, PHOTOS.lauterbrunnen, PHOTOS.arniAlp]}
+      captions={['Skagit River, 1973', 'Little Moose Lake, 1973', 'Hood River Valley, 1973']}
+      photos={[PHOTOS.skagit73, PHOTOS.moose73, PHOTOS.hood73]}
       overlay
       icon={<Brain size={24} aria-hidden />}
       tagline="ADHD-friendly focus, mood and organisation — fewer decisions, more done."
@@ -52,7 +53,7 @@ export function Fuel() {
     <ModulePreview
       name="Fuel"
       vol="003"
-      block="mustard"
+      block="green"
       plates={['wall', 'holds', 'ridge']}
       captions={['Wildflowers, 1967', 'Autumn light, 1968', 'Beach picnic, 1955']}
       photos={[PHOTOS.didi67, PHOTOS.sherrewogue68, PHOTOS.picnic55]}
@@ -78,7 +79,7 @@ const TRAIN_TABS = [
     id: 'move',
     label: 'Move',
     vol: '001',
-    block: 'clay',
+    block: 'red',
     plates: ['ridge-calm', 'holds', 'ridge'],
     captions: ['Maiturm, Saxon Switzerland', 'Smith Rock, 1987', 'On the tower, after 1945'],
     photos: [PHOTOS.maiturm42, PHOTOS.smith87d, PHOTOS.maiturm44],
@@ -91,7 +92,7 @@ const TRAIN_TABS = [
     id: 'climb',
     label: 'Climb',
     vol: '002',
-    block: 'sky',
+    block: 'cobalt',
     plates: ['holds', 'ridge-calm', 'wall'],
     captions: ['Hanging traverse, c. 1965', 'Smith Rock, 1987', 'Smith Rock, 1989'],
     photos: [PHOTOS.traverse65, PHOTOS.smith87c, PHOTOS.smith89b],
@@ -112,7 +113,7 @@ const TRAIN_TABS = [
     features: ['Finger and wrist mobility', 'Shoulder preparation', 'Hip mobility', 'Progressive climbing warm-ups', 'Strength exercises and technique drills', 'Guided timers', 'Post-workout stretching', 'Injury-aware modifications'],
     principle: 'Any pain you report in your check-in will filter out exercises that load that area.',
   },
-] as const satisfies ReadonlyArray<{ block: 'mustard' | 'sky' | 'cocoa' | 'clay' | 'bone'; plates: readonly [Art, Art, Art]; captions: readonly [string, string, string]; photos: readonly [Photo, Photo, Photo] } & Record<string, unknown>>;
+] as const satisfies ReadonlyArray<{ block: Block; plates: readonly [Art, Art, Art]; captions: readonly [string, string, string]; photos: readonly [Photo, Photo, Photo] } & Record<string, unknown>>;
 
 export function Train() {
   const [tab, setTab] = useState<(typeof TRAIN_TABS)[number]['id']>('move');

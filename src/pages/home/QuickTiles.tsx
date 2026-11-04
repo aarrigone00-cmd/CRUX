@@ -34,7 +34,7 @@ const WORD_FONT = {
 export function QuickTiles() {
   return (
     <nav aria-label="Quick access" className="bg-ink-900 p-1.5 shadow-[var(--shadow-soft)]">
-      <p className="flex justify-between px-1.5 pt-1 pb-2.5 font-mono text-[0.62rem] tracking-[0.14em] text-bone-100/70 uppercase">
+      <p className="flex justify-between px-1.5 pt-1 pb-2.5 font-type text-[0.62rem] tracking-[0.14em] text-bone-100/70 uppercase">
         <span>Index</span>
         <span>06 cards</span>
       </p>
@@ -47,7 +47,7 @@ export function QuickTiles() {
               style={{ backgroundColor: c.bg, color: c.ink }}
               aria-label={`${c.label}: ${c.copy}`}
             >
-              <p className="relative z-10 p-[4cqw] font-mono text-[max(0.55rem,3.6cqw)] leading-[1.25]">
+              <p className="relative z-10 p-[4cqw] font-type text-[max(0.55rem,3.6cqw)] leading-[1.25]">
                 <span className="line-clamp-2 sm:line-clamp-3">{c.copy}</span>
               </p>
               <Doodle kind={c.doodle} className={cx('absolute transition-transform duration-500 group-hover:rotate-3', c.doodleClass)} />
@@ -57,7 +57,7 @@ export function QuickTiles() {
               >
                 {c.word}
               </span>
-              <span className="absolute inset-x-[4cqw] bottom-[3cqw] grid grid-cols-3 font-mono text-[max(0.55rem,3.4cqw)]">
+              <span className="absolute inset-x-[4cqw] bottom-[3cqw] grid grid-cols-3 font-type text-[max(0.55rem,3.4cqw)]">
                 <span>0{i + 1}</span>
                 <span className="text-center">{c.label}</span>
                 <span className="text-right">Open →</span>

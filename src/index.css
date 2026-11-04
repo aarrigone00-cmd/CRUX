@@ -4,15 +4,16 @@
    Fashion-editorial: square sheets on a soft ikat backdrop, hairline rules,
    Garamond italic headlines, mono captions, flat colour-block spreads. */
 @theme {
-  --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
-  --font-grotesk: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, sans-serif;
+  --font-mono: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
+  --font-type: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-grotesk: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
   --font-didone: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
   --font-script: 'Mrs Saint Delafield', 'Snell Roundhand', cursive;
   --font-brush: 'Mr Dafoe', 'Brush Script MT', cursive;
   --font-poster: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
-  --font-condensed: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue Condensed', sans-serif;
+  --font-condensed: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
   --color-poster-green: #1d6a3d;
   --color-poster-red: #d7362b;
   --color-poster-frame: #b8594b;
@@ -101,8 +102,9 @@
   }
   body {
     @apply bg-bone-100 font-sans text-ink-800 antialiased;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.45;
     /* CRUX ikat, full detail, behind the printed sheets */
     background-color: #d6c2a2;
     background-image: url('/textures/ikat.webp');
@@ -141,7 +143,7 @@
 }
 
 @utility btn {
-  @apply inline-flex min-h-11 items-center justify-center gap-2 px-5 font-mono text-[0.78rem] font-medium tracking-[0.12em] uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-35;
+  @apply inline-flex min-h-11 items-center justify-center gap-2 px-5 font-poster text-[0.9rem] font-normal tracking-[0.12em] uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-35;
 }
 
 @layer components {
@@ -176,7 +178,7 @@
   }
   select.input { @apply border border-ink-900/30 px-3; }
   /* mono caption: "/VOL. 001", "JUNE 2026", "02 — CHECK-IN" */
-  .eyebrow { @apply font-mono text-[0.68rem] font-medium tracking-[0.14em] text-ink-500 uppercase; }
+  .eyebrow { @apply font-poster text-[0.72rem] font-normal tracking-[0.22em] text-ink-500 uppercase; }
   .display-italic { @apply font-display italic; }
   .rule { @apply border-t border-ink-900/15; }
 }
@@ -215,3 +217,7 @@ main { counter-reset: page; }
 
 /* Hide the sidebar plate on short screens so navigation never scrolls */
 @media (max-height: 960px) { .sidebar-fig { display: none; } }
+
+/* Poster type system: no italics anywhere; headings in tall condensed Anton caps */
+.italic, em, i { font-style: normal !important; }
+h1, h2, h3 { font-family: var(--font-poster); font-weight: 400; text-transform: uppercase; letter-spacing: 0.005em; }
