@@ -1,31 +1,34 @@
 import { Link } from 'react-router-dom';
-import { Brain, CalendarHeart, Mountain, Salad, StretchHorizontal } from 'lucide-react';
 import { Hold, type HoldShape } from '@/components/Holds';
 
-const TILES: Array<{ to: string; label: string; sub: string; icon: typeof Mountain; cls: string; hold: HoldShape; holdColor: string }> = [
-  { to: '/train', label: 'Climb', sub: 'Log your sends', icon: Mountain, cls: 'bg-ink-900 text-bone-50', hold: 'jug', holdColor: '#cb744c' },
-  { to: '/train', label: 'Prep', sub: 'Warm-ups', icon: StretchHorizontal, cls: 'bg-clay-600 text-bone-50', hold: 'sloper', holdColor: '#efd59c' },
-  { to: '/cycle', label: 'Cycle', sub: 'Track & learn', icon: CalendarHeart, cls: 'bg-oxblood-500 text-bone-50', hold: 'pocket', holdColor: '#bea0aa' },
-  { to: '/fuel', label: 'Fuel', sub: 'Eat for the send', icon: Salad, cls: 'bg-ochre-300 text-ink-900', hold: 'crimp', holdColor: '#7a361d' },
-  { to: '/mind', label: 'Mind', sub: 'Focus & calm', icon: Brain, cls: 'bg-moss-700 text-bone-50', hold: 'pinch', holdColor: '#dc9874' },
+const TILES: Array<{ to: string; label: string; sub: string; cls: string; hold: HoldShape; holdColor: string }> = [
+  { to: '/train', label: 'Climb', sub: 'Log your sends', cls: 'bg-ink-900', hold: 'jug', holdColor: '#f6d76b' },
+  { to: '/train', label: 'Prep', sub: 'Warm-ups', cls: 'bg-sky-300', hold: 'sloper', holdColor: '#7e2220' },
+  { to: '/cycle', label: 'Cycle', sub: 'Track & learn', cls: 'bg-cocoa-600', hold: 'pocket', holdColor: '#dc9874' },
+  { to: '/fuel', label: 'Fuel', sub: 'Eat for the send', cls: 'bg-mustard-300', hold: 'crimp', holdColor: '#121110' },
+  { to: '/mind', label: 'Mind', sub: 'Focus & calm', cls: 'bg-oxblood-500', hold: 'pinch', holdColor: '#b9d7ea' },
 ];
 
+/** Index of sections as colour-block plates with captions. */
 export function QuickTiles() {
   return (
-    <nav aria-label="Quick access" className="no-scrollbar -mx-4 overflow-x-auto px-4 pb-1 lg:mx-0 lg:px-0">
-      <ul className="flex gap-3 lg:grid lg:grid-cols-5">
-        {TILES.map(({ to, label, sub, icon: Icon, cls, hold, holdColor }) => (
-          <li key={label} className="shrink-0">
-            <Link
-              to={to}
-              className={`grain relative flex h-36 w-32 flex-col justify-between overflow-hidden rounded-[1.25rem] p-4 shadow-[var(--shadow-soft)] transition-transform duration-300 hover:-translate-y-1 lg:w-full ${cls}`}
-            >
-              <Hold shape={hold} color={holdColor} rotate={-18} className="absolute -right-5 -bottom-5 h-20 w-20 opacity-90" />
-              <Icon size={20} aria-hidden className="relative" />
-              <span className="relative">
-                <span className="display-italic block text-2xl leading-none">{label}</span>
-                <span className="mt-1 block text-xs font-medium opacity-80">{sub}</span>
-              </span>
+    <nav aria-label="Quick access" className="border border-ink-900/10 bg-bone-50 px-5 pt-4 pb-5 shadow-[var(--shadow-soft)] sm:px-8">
+      <p className="eyebrow mb-3 flex justify-between border-b border-ink-900/15 pb-2">
+        <span>Index</span>
+        <span>05 sections</span>
+      </p>
+      <ul className="no-scrollbar -mx-5 flex gap-3 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-5 sm:px-0">
+        {TILES.map(({ to, label, sub, cls, hold, holdColor }, i) => (
+          <li key={label} className="w-32 shrink-0 sm:w-auto">
+            <Link to={to} className="group block">
+              <div className={`grain relative aspect-[4/5] overflow-hidden ${cls}`}>
+                <Hold shape={hold} color={holdColor} rotate={-14} className="absolute top-1/2 left-1/2 w-[58%] -translate-x-1/2 -translate-y-1/2 transition-transform duration-500 group-hover:scale-110" />
+              </div>
+              <p className="mt-2 flex items-baseline gap-2">
+                <span className="font-mono text-[0.6rem] text-ink-500">0{i + 1}</span>
+                <span className="font-display text-lg leading-none italic group-hover:underline">{label}</span>
+              </p>
+              <p className="font-mono text-[0.6rem] tracking-[0.1em] text-ink-500 uppercase">{sub}</p>
             </Link>
           </li>
         ))}

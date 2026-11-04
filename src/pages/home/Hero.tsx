@@ -1,62 +1,74 @@
-import { ArrowDown, Dumbbell, ListChecks, Moon, Smile, Zap } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { ArrowDown } from 'lucide-react';
 import { useStore } from '@/data/store';
 import { formatLongDate, greeting } from '@/lib/date';
-import { Ridge } from '@/components/Ridge';
+import { Figure } from '@/components/Figure';
+import { Marquee } from '@/components/Marquee';
 
-const MOOD = ['Very low', 'Low', 'Okay', 'Good', 'Great'];
-const ENERGY = ['Drained', 'Low', 'Steady', 'Strong', 'Charged'];
+const MOOD = ['very low', 'low', 'okay', 'good', 'great'];
+const ENERGY = ['drained', 'low', 'steady', 'strong', 'charged'];
 
+/** Home cover: statement headline, staggered figures with captions, and a ticker. */
 export function Hero() {
   const { data, today, todayCheckIn: c } = useStore();
-  const name = data.profile.displayName.trim();
+  const name = data.profile.displayName.trim() || 'you';
   const workouts = data.workouts.filter((w) => w.date === today);
   const priorities = data.priorities.filter((p) => p.date === today);
 
   return (
-    <header className="grain relative isolate min-h-[26rem] overflow-hidden rounded-[var(--radius-card)] bg-ink-900 text-bone-50 shadow-[var(--shadow-lift)] sm:min-h-[30rem]">
-      <Ridge id="hero" align="xMaxYMax" className="absolute inset-0 -z-10 h-full w-full" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink-900/85 via-ink-900/10 to-ink-900/30" aria-hidden />
+    <header className="border border-ink-900/10 bg-bone-50 shadow-[var(--shadow-soft)]">
+      <div className="flex flex-col gap-1 border-b border-ink-900/15 px-5 py-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 sm:px-8">
+        <p className="font-display text-lg leading-tight whitespace-nowrap">
+          Journal <span className="text-ink-500">(Train — <span className="font-grotesk font-semibold tracking-tight text-ink-900 uppercase">Fuel</span> — Thrive)</span>
+        </p>
+        <p className="eyebrow shrink-0">{formatLongDate()}</p>
+      </div>
 
-      <div className="flex h-full min-h-[26rem] flex-col justify-between p-5 sm:min-h-[30rem] sm:p-9">
-        <div className="flex items-start justify-between gap-4">
-          <p className="text-[0.7rem] font-semibold tracking-[0.24em] text-ochre-200 uppercase">{formatLongDate()}</p>
-          <p className="hidden text-[0.7rem] font-semibold tracking-[0.24em] text-bone-100/70 uppercase sm:block">Train · Fuel · Thrive</p>
-        </div>
-
-        <div>
-          <h1 className="display-italic max-w-[12ch] text-[2.6rem] leading-[1.02] font-medium text-bone-50 sm:text-7xl">
-            {greeting()}
-            {name && <span className="text-ochre-200">, {name}</span>}
+      <div className="grid gap-8 px-5 pt-7 pb-8 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:pt-10">
+        <div className="flex flex-col justify-between">
+          <h1 className="font-grotesk text-[2.4rem] leading-[1.02] font-medium tracking-[-0.035em] text-ink-900 sm:text-[3.4rem]">
+            {greeting()}, <span className="font-display font-normal tracking-normal italic">{name}</span>.{' '}
+            {c ? (
+              <>
+                Feeling {MOOD[c.mood - 1]}, energy {ENERGY[c.energy - 1]}.
+              </>
+            ) : (
+              <span className="text-ink-400">How are you, really?</span>
+            )}
           </h1>
-          <p className="mt-3 max-w-sm text-bone-100/85">
-            {c ? 'Here’s your line for today.' : 'Chalk up with a 30-second check-in — everything below adapts to how you feel.'}
-          </p>
 
           {c ? (
-            <ul className="mt-5 flex flex-wrap gap-2">
-              <Stat icon={<Smile size={15} />} label={MOOD[c.mood - 1]} />
-              <Stat icon={<Zap size={15} />} label={`${ENERGY[c.energy - 1]} energy`} />
-              <Stat icon={<Moon size={15} />} label={`${c.sleepHours} h sleep`} />
-              {workouts.length > 0 && <Stat icon={<Dumbbell size={15} />} label={`${workouts.filter((w) => w.completed).length}/${workouts.length} sessions`} />}
-              {priorities.length > 0 && <Stat icon={<ListChecks size={15} />} label={`${priorities.filter((p) => p.done).length}/${priorities.length} priorities`} />}
-            </ul>
+            <dl className="mt-8 grid grid-cols-3 border-t border-ink-900/15 pt-3">
+              <Index label="Sleep" value={`${c.sleepHours}h`} />
+              <Index label="Sessions" value={`${workouts.filter((w) => w.completed).length}/${workouts.length}`} />
+              <Index label="Priorities" value={`${priorities.filter((p) => p.done).length}/${priorities.length}`} />
+            </dl>
           ) : (
-            <a href="#checkin" className="btn mt-5 bg-bone-50 text-ink-900 hover:bg-ochre-100">
-              Chalk up <ArrowDown size={16} aria-hidden />
+            <a href="#checkin" className="btn-primary mt-8 self-start">
+              Chalk up — check in <ArrowDown size={14} aria-hidden />
             </a>
           )}
         </div>
+
+        {/* staggered plates */}
+        <div className="grid grid-cols-[1.25fr_1fr] items-start gap-3 sm:gap-4">
+          <Figure art="ridge" id="hero-a" index="01" caption="The crux, golden hour" frameClass="aspect-[4/5]" />
+          <div className="mt-14 space-y-4 sm:mt-20">
+            <Figure art="wall" id="hero-b" index="02" caption="Project, V4" frameClass="aspect-square" />
+            <Figure art="ikat" id="hero-c" index="03" caption="Oxblood warp" frameClass="aspect-[5/3]" />
+          </div>
+        </div>
       </div>
+
+      <Marquee items={['Train. Fuel. Thrive.', 'Chalk up', 'Rest is training too', 'Send it', 'Fuel the climb', 'Listen to your body']} />
     </header>
   );
 }
 
-function Stat({ icon, label }: { icon: ReactNode; label: string }) {
+function Index({ label, value }: { label: string; value: string }) {
   return (
-    <li className="flex items-center gap-1.5 rounded-full border border-bone-50/20 bg-ink-900/35 px-3 py-1.5 text-sm font-semibold text-bone-50 backdrop-blur-md">
-      <span aria-hidden className="text-ochre-200">{icon}</span>
-      {label}
-    </li>
+    <div>
+      <dt className="eyebrow">{label}</dt>
+      <dd className="font-display text-3xl italic">{value}</dd>
+    </div>
   );
 }

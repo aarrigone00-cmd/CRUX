@@ -21,16 +21,16 @@ export function Settings() {
 
   return (
     <div className="space-y-5">
-      <header className="card"><p className="eyebrow">Your account</p><h1 className="display-italic text-4xl font-medium">Profile & privacy</h1></header>
+      <header className="card"><p className="eyebrow">/Your account</p><h1 className="mt-1 font-display text-5xl italic">Profile & privacy</h1></header>
 
       <section className="card space-y-4">
         <SectionHeader title="Profile" icon={<UserRound size={20} aria-hidden />} />
-        <label className="block text-sm font-semibold text-ink-700">
+        <label className="block font-mono text-[0.7rem] tracking-[0.12em] text-ink-700 uppercase">
           What should we call you?
-          <input className="input mt-1" value={data.profile.displayName} onChange={(e) => updateProfile({ displayName: e.target.value })} maxLength={40} placeholder="First name or nickname" />
+          <input className="input mt-1 font-sans text-base tracking-normal normal-case" value={data.profile.displayName} onChange={(e) => updateProfile({ displayName: e.target.value })} maxLength={40} placeholder="First name or nickname" />
         </label>
         <fieldset>
-          <legend className="mb-2 text-sm font-semibold text-ink-700">Activities you do most</legend>
+          <legend className="mb-2 font-mono text-[0.7rem] tracking-[0.12em] text-ink-700 uppercase">Activities you do most</legend>
           <div className="flex flex-wrap gap-2">
             {ACTIVITY_TYPES.map((a) => {
               const on = data.profile.focusActivities.includes(a);
@@ -49,10 +49,10 @@ export function Settings() {
         <p className="text-ink-700">
           Right now your data is stored <strong>only in this browser</strong> on this device. Nothing is sent to a server. Account sync with private, per-user storage arrives in the next phase.
         </p>
-        <label className="flex items-start gap-3 rounded-2xl bg-bone-200/50 p-3">
+        <label className="flex items-start gap-3 bg-bone-200/50 p-3">
           <input
             type="checkbox"
-            className="mt-1 h-5 w-5 accent-[var(--color-moss-700)]"
+            className="mt-1 h-5 w-5 accent-[var(--color-ink-900)]"
             checked={guideConsent}
             onChange={(e) => {
               setGuideConsent(e.target.checked);
@@ -71,11 +71,11 @@ export function Settings() {
           <button className="btn-secondary" onClick={loadDemo}>Load demo data</button>
         </div>
         {!confirming ? (
-          <button className="btn border border-clay-300 text-clay-700 hover:bg-clay-50" onClick={() => setConfirming(true)}>
+          <button className="btn border border-oxblood-500 text-oxblood-500 hover:bg-oxblood-500 hover:text-bone-50" onClick={() => setConfirming(true)}>
             <Trash2 size={16} aria-hidden /> Delete all my data
           </button>
         ) : (
-          <div role="alertdialog" aria-labelledby="del-title" className="rounded-2xl border border-clay-200 bg-clay-50 p-4">
+          <div role="alertdialog" aria-labelledby="del-title" className=" border border-clay-200 bg-clay-50 p-4">
             <p id="del-title" className="font-semibold text-clay-700">Delete everything stored by CRUX on this device?</p>
             <p className="text-sm text-clay-700">Check-ins, priorities, workouts and your profile will be removed. This can’t be undone.</p>
             <div className="mt-3 flex gap-2">
@@ -96,7 +96,7 @@ export function Settings() {
         )}
       </section>
 
-      <p className="mx-auto w-fit rounded-full bg-bone-50/90 px-4 py-1.5 text-center text-xs text-ink-600">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
+      <p className="mx-auto w-fit bg-bone-50/90 px-4 py-1.5 text-center text-xs text-ink-600">CRUX v0.1 · Phase 1 preview · Train. Fuel. Thrive.</p>
     </div>
   );
 }

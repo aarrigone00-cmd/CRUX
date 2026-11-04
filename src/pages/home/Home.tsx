@@ -4,7 +4,6 @@ import { useStore } from '@/data/store';
 import { fuelReminders, recoverySuggestions } from '@/lib/suggestions';
 import { SectionHeader } from '@/components/ui';
 import { WeekChart } from '@/components/WeekChart';
-import { Ridge } from '@/components/Ridge';
 import { CheckInCard } from './CheckInCard';
 import { PrioritiesCard } from './PrioritiesCard';
 import { WorkoutsCard } from './WorkoutsCard';
@@ -25,8 +24,8 @@ export function Home() {
       <QuickTiles />
 
       {isEmpty && (
-        <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-dashed border-clay-300 bg-bone-50/95 p-4 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-clay-800">New here? Load a week of sample data to see how CRUX looks in use. You can clear it any time in Profile & privacy.</p>
+        <div className="flex flex-col gap-3 bg-mustard-300 p-5 shadow-[var(--shadow-soft)] sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-display text-lg leading-snug text-ink-900 italic">New here? Load a week of sample data to see how CRUX looks in use. You can clear it any time in Profile & privacy.</p>
           <button className="btn-primary shrink-0" onClick={loadDemo}>
             Load demo data
           </button>
@@ -58,23 +57,30 @@ export function Home() {
         <section className="card-ink grain" aria-label="Your week">
           <SectionHeader eyebrow="Last 7 days" title="Your week on the wall" icon={<Activity size={20} aria-hidden />} tone="clay" />
           <WeekChart data={data} today={today} />
-          <p className="mt-3 text-xs text-bone-100/55">Shows what you logged. Patterns here are observations, not causes.</p>
+          <p className="mt-4 font-display text-sm text-bone-100/60 italic">Shows what you logged. Patterns here are observations, not causes.</p>
         </section>
 
-        <section className="card-ink grain isolate" aria-label="CRUX GUIDE">
-          <Ridge id="guide" climber={false} className="absolute inset-x-0 bottom-0 -z-10 h-40 w-full opacity-60" />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-ink-900 via-ink-900/85 to-ink-900/30" aria-hidden />
-          <SectionHeader eyebrow="AI assistant" title="Get beta from GUIDE" icon={<Sparkles size={20} aria-hidden />} tone="mauve" />
-          <p className="mb-4 text-bone-100/80">Warm-ups, meal ideas, recovery and planning help — in plain language.</p>
-          <ul className="space-y-2">
-            {GUIDE_PROMPTS.map((q) => (
-              <li key={q}>
-                <Link to={`/guide?q=${encodeURIComponent(q)}`} className="flex min-h-11 items-center justify-between gap-2 rounded-full border border-bone-50/15 bg-bone-50/[0.06] px-4 text-[0.95rem] font-medium text-bone-50 backdrop-blur transition-colors hover:bg-bone-50/15">
-                  {q} <ArrowRight size={16} aria-hidden className="shrink-0 text-ochre-200" />
+        <section className="grain bg-sky-300 p-5 shadow-[var(--shadow-soft)] sm:p-7" aria-label="CRUX GUIDE">
+          <div className="flex items-baseline justify-between border-b border-ink-900/25 pb-3">
+            <p className="flex items-baseline gap-4">
+              <span className="font-display text-2xl leading-none">Guide</span>
+              <span className="font-mono text-xs text-ink-700">/AI · BETA</span>
+            </p>
+            <Sparkles size={16} aria-hidden className="text-ink-900" />
+          </div>
+          <h2 className="mt-5 font-display text-4xl leading-none italic">Ask for beta.</h2>
+          <p className="mt-2 font-display text-lg text-ink-700 italic">Warm-ups, meals, recovery, planning — in plain language.</p>
+          <ol className="mt-5 border-t border-ink-900/25">
+            {GUIDE_PROMPTS.map((q, i) => (
+              <li key={q} className="border-b border-ink-900/25">
+                <Link to={`/guide?q=${encodeURIComponent(q)}`} className="group flex min-h-12 items-center gap-3 text-ink-900">
+                  <span className="font-mono text-[0.65rem] text-ink-700">0{i + 1}</span>
+                  <span className="flex-1 group-hover:underline">{q}</span>
+                  <ArrowRight size={16} aria-hidden className="shrink-0 -rotate-45 transition-transform group-hover:rotate-0" />
                 </Link>
               </li>
             ))}
-          </ul>
+          </ol>
         </section>
       </div>
     </div>

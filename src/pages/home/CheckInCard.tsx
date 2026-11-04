@@ -39,10 +39,10 @@ export function CheckInCard() {
           }
         />
         <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <Stat label="Mood" value={MOOD[c.mood - 1]} sub={`${c.mood}/5`} cls="bg-moss-50 border-moss-100" />
-          <Stat label="Energy" value={ENERGY[c.energy - 1]} sub={`${c.energy}/5`} cls="bg-mauve-50 border-mauve-100" />
-          <Stat label="Stress" value={STRESS[c.stress - 1]} sub={`${c.stress}/5`} cls="bg-clay-50 border-clay-100" />
-          <Stat label="Sleep" value={`${c.sleepHours} h`} sub="last night" cls="bg-bone-200/70 border-bone-300" />
+          <Stat label="Mood" value={MOOD[c.mood - 1]} sub={`${c.mood}/5`} cls="bg-sky-100 border-sky-200" />
+          <Stat label="Energy" value={ENERGY[c.energy - 1]} sub={`${c.energy}/5`} cls="bg-mustard-200/60 border-mustard-300" />
+          <Stat label="Stress" value={STRESS[c.stress - 1]} sub={`${c.stress}/5`} cls="bg-clay-50 border-clay-200" />
+          <Stat label="Sleep" value={`${c.sleepHours} h`} sub="last night" cls="bg-bone-100 border-bone-300" />
         </dl>
         {c.pain.length > 0 && (
           <div className="mt-4 flex flex-wrap items-center gap-2">
@@ -128,10 +128,10 @@ export function CheckInCard() {
 
 function Stat({ label, value, sub, cls }: { label: string; value: string; sub: string; cls: string }) {
   return (
-    <div className={`rounded-2xl border p-3 ${cls}`}>
-      <dt className="text-xs font-semibold tracking-wide text-ink-500 uppercase">{label}</dt>
-      <dd className="mt-0.5 font-semibold text-ink-800">{value}</dd>
-      <dd className="text-xs text-ink-500">{sub}</dd>
+    <div className={`border p-3 ${cls}`}>
+      <dt className="eyebrow">{label}</dt>
+      <dd className="mt-1 font-display text-2xl leading-none text-ink-900 italic">{value}</dd>
+      <dd className="mt-1 font-mono text-[0.62rem] text-ink-500">{sub}</dd>
     </div>
   );
 }

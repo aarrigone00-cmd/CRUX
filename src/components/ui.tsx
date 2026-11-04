@@ -7,28 +7,19 @@ export function cx(...c: Array<string | false | null | undefined>) {
 }
 
 export const toneClasses: Record<Tone, string> = {
-  moss: 'bg-moss-50 border-moss-200 text-moss-800',
-  mauve: 'bg-mauve-50 border-mauve-200 text-mauve-700',
-  clay: 'bg-clay-50 border-clay-200 text-clay-700',
-  bone: 'bg-bone-200/60 border-bone-300 text-ink-700',
+  moss: 'bg-sky-100 border-sky-200 text-ink-800',
+  mauve: 'bg-mustard-200/60 border-mustard-300 text-ink-800',
+  clay: 'bg-clay-50 border-clay-200 text-clay-800',
+  bone: 'bg-bone-100 border-bone-300 text-ink-700',
 };
 
-const iconTone: Record<Tone, string> = {
-  moss: 'bg-moss-100 text-moss-700',
-  mauve: 'bg-ochre-100 text-ochre-600',
-  clay: 'bg-clay-100 text-clay-600',
-  bone: 'bg-bone-200 text-ink-600',
-};
-
-export function SectionHeader({ title, eyebrow, action, icon, tone = 'moss' }: { title: string; eyebrow?: string; action?: ReactNode; icon?: ReactNode; tone?: Tone }) {
+/** Editorial section header: mono kicker, Garamond italic title, hairline rule. Icons are intentionally not shown. */
+export function SectionHeader({ title, eyebrow, action }: { title: string; eyebrow?: string; action?: ReactNode; icon?: ReactNode; tone?: Tone }) {
   return (
-    <div className="mb-4 flex items-start justify-between gap-3">
-      <div className="flex items-center gap-3">
-        {icon && <span className={cx('grid h-11 w-11 shrink-0 place-items-center hold-blob', iconTone[tone])}>{icon}</span>}
-        <div>
-          {eyebrow && <p className="eyebrow">{eyebrow}</p>}
-          <h2 className="font-display text-[1.35rem] font-medium tracking-tight">{title}</h2>
-        </div>
+    <div className="mb-5 flex items-end justify-between gap-3 border-b border-ink-900/15 pb-3">
+      <div>
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+        <h2 className="mt-1 font-display text-[1.75rem] leading-none italic">{title}</h2>
       </div>
       {action}
     </div>
@@ -44,7 +35,7 @@ export function ScalePicker({
   accent = 'moss',
   icons,
 }: {
-  icons?: Array<ComponentType<{ size?: number; 'aria-hidden'?: boolean }>>;
+  icons?: Array<ComponentType<{ size?: number; strokeWidth?: number; 'aria-hidden'?: boolean }>>;
   label: string;
   value?: Scale;
   onChange: (v: Scale) => void;
@@ -53,16 +44,16 @@ export function ScalePicker({
 }) {
   const active = {
     moss: 'bg-ink-900 text-bone-50 border-ink-900',
-    mauve: 'bg-ochre-300 text-ink-900 border-ochre-400',
+    mauve: 'bg-mustard-300 text-ink-900 border-ink-900',
     clay: 'bg-clay-600 text-white border-clay-600',
   }[accent];
   return (
     <fieldset>
-      <legend className="mb-2 flex w-full justify-between text-sm font-semibold text-ink-700">
+      <legend className="mb-2 flex w-full justify-between font-mono text-[0.7rem] tracking-[0.12em] text-ink-700 uppercase">
         <span>{label}</span>
-        {value && <span className="font-medium text-ink-500">{labels[value - 1]}</span>}
+        {value && <span className="font-display text-base tracking-normal text-ink-600 normal-case italic">{labels[value - 1]}</span>}
       </legend>
-      <div className="grid grid-cols-5 gap-2">
+      <div className="grid grid-cols-5 gap-1.5">
         {([1, 2, 3, 4, 5] as Scale[]).map((n) => (
           <button
             key={n}
@@ -71,12 +62,12 @@ export function ScalePicker({
             aria-label={`${label}: ${n} of 5, ${labels[n - 1]}`}
             onClick={() => onChange(n)}
             className={cx(
-              'flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-2xl border text-sm font-semibold transition-all',
-              value === n ? cx(active, 'scale-[1.04] shadow-md') : 'border-bone-300 bg-white/70 text-ink-600 hover:-translate-y-0.5 hover:bg-white',
+              'flex min-h-14 flex-col items-center justify-center gap-1 border transition-colors',
+              value === n ? active : 'border-ink-900/15 bg-transparent text-ink-600 hover:border-ink-900',
             )}
           >
-            {icons ? (() => { const I = icons[n - 1]; return <I size={22} aria-hidden />; })() : null}
-            <span className={icons ? 'text-xs' : 'text-base'}>{n}</span>
+            {icons ? (() => { const I = icons[n - 1]; return <I size={20} aria-hidden strokeWidth={1.5} />; })() : null}
+            <span className="font-mono text-[0.68rem]">0{n}</span>
           </button>
         ))}
       </div>
@@ -98,15 +89,15 @@ export function ProgressRing({ value, max, size = 56, label }: { value: number; 
           cy={size / 2}
           r={r}
           fill="none"
-          stroke="var(--color-clay-500)"
+          stroke="var(--color-ink-900)"
           strokeWidth={stroke}
-          strokeLinecap="round"
+          strokeLinecap="butt"
           strokeDasharray={c}
           strokeDashoffset={c * (1 - pct)}
           style={{ transition: 'stroke-dashoffset 400ms ease' }}
         />
       </svg>
-      <span className="absolute inset-0 grid place-items-center text-sm font-semibold text-ink-800">
+      <span className="absolute inset-0 grid place-items-center font-mono text-xs text-ink-800">
         {value}/{max}
       </span>
     </div>
@@ -120,8 +111,8 @@ export function Chip({ selected, onClick, children }: { selected: boolean; onCli
       aria-pressed={selected}
       onClick={onClick}
       className={cx(
-        'min-h-10 rounded-full border px-4 text-sm font-medium transition-colors',
-        selected ? 'border-clay-500 bg-clay-100 text-clay-700' : 'border-bone-300 bg-white text-ink-600 hover:bg-bone-200',
+        'min-h-10 border px-3.5 font-mono text-[0.7rem] tracking-[0.1em] uppercase transition-colors',
+        selected ? 'border-ink-900 bg-ink-900 text-mustard-300' : 'border-ink-900/20 text-ink-700 hover:border-ink-900',
       )}
     >
       {children}
@@ -130,5 +121,5 @@ export function Chip({ selected, onClick, children }: { selected: boolean; onCli
 }
 
 export function Pill({ children, tone = 'bone' }: { children: ReactNode; tone?: Tone }) {
-  return <span className={cx('inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold', toneClasses[tone])}>{children}</span>;
+  return <span className={cx('inline-flex items-center border px-2 py-0.5 font-mono text-[0.62rem] tracking-[0.1em] uppercase', toneClasses[tone])}>{children}</span>;
 }

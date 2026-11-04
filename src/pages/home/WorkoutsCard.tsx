@@ -36,13 +36,13 @@ export function WorkoutsCard() {
 
       <ul className="space-y-2">
         {items.map((w) => (
-          <li key={w.id} className={cx('flex items-center gap-3 rounded-2xl border p-3', w.completed ? 'border-clay-200 bg-clay-50' : 'border-bone-300 bg-white')}>
+          <li key={w.id} className={cx('flex items-center gap-3 border p-3', w.completed ? 'border-clay-200 bg-clay-50' : 'border-bone-300 bg-white')}>
             <button
               onClick={() => toggleWorkout(w.id)}
               aria-pressed={w.completed}
               aria-label={`${w.completed ? 'Mark not done' : 'Mark done'}: ${w.title || w.type}`}
               className={cx(
-                'grid h-10 w-10 shrink-0 place-items-center rounded-full border-2',
+                'grid h-10 w-10 shrink-0 place-items-center border-2',
                 w.completed ? 'border-clay-600 bg-clay-600 text-white' : 'border-ink-300 text-transparent hover:border-clay-500',
               )}
             >
@@ -56,7 +56,7 @@ export function WorkoutsCard() {
                 <Pill tone={intensityTone[w.intensity]}>{w.intensity}</Pill>
               </p>
             </div>
-            <button onClick={() => removeWorkout(w.id)} aria-label={`Delete ${w.title || w.type}`} className="grid h-9 w-9 place-items-center rounded-full text-ink-400 hover:bg-bone-200 hover:text-ink-700">
+            <button onClick={() => removeWorkout(w.id)} aria-label={`Delete ${w.title || w.type}`} className="grid h-9 w-9 place-items-center text-ink-400 hover:bg-bone-200 hover:text-ink-700">
               <Trash2 size={16} aria-hidden />
             </button>
           </li>
@@ -65,7 +65,7 @@ export function WorkoutsCard() {
 
       {adding && (
         <form
-          className="mt-3 space-y-4 rounded-2xl bg-bone-200/50 p-4"
+          className="mt-3 space-y-4 bg-bone-200/50 p-4"
           onSubmit={(e) => {
             e.preventDefault();
             addWorkout({ date: today, type, title: title.trim(), durationMin: duration, intensity });
@@ -90,7 +90,7 @@ export function WorkoutsCard() {
             <div className="flex flex-wrap gap-2">
               {DURATIONS.map((d) => (
                 <button key={d} type="button" aria-pressed={duration === d} onClick={() => setDuration(d)}
-                  className={cx('min-h-10 rounded-full border px-4 text-sm font-semibold', duration === d ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
+                  className={cx('min-h-10 border px-4 text-sm font-semibold', duration === d ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
                   {d} min
                 </button>
               ))}
@@ -101,7 +101,7 @@ export function WorkoutsCard() {
             <div className="grid grid-cols-3 gap-2">
               {INTENSITY.map((i) => (
                 <button key={i} type="button" aria-pressed={intensity === i} onClick={() => setIntensity(i)}
-                  className={cx('min-h-11 rounded-xl border text-sm font-semibold capitalize', intensity === i ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
+                  className={cx('min-h-11 border text-sm font-semibold capitalize', intensity === i ? 'border-ink-900 bg-ink-900 text-white' : 'border-bone-300 bg-white text-ink-600')}>
                   {i}
                 </button>
               ))}

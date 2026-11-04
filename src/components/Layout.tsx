@@ -1,111 +1,139 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { Brain, CalendarHeart, CircleUserRound, House, Mountain, Salad, Sparkles } from 'lucide-react';
-import { Wordmark } from './Logo';
+import { ArrowUpRight, Brain, CalendarHeart, CircleUserRound, House, Mountain, Salad } from 'lucide-react';
+import { Ridge } from './Ridge';
 import { cx } from './ui';
 
 export const NAV = [
-  { to: '/', label: 'Home', icon: House, end: true },
-  { to: '/train', label: 'Train', icon: Mountain },
-  { to: '/fuel', label: 'Fuel', icon: Salad },
-  { to: '/cycle', label: 'Cycle', icon: CalendarHeart },
-  { to: '/mind', label: 'Mind', icon: Brain },
+  { to: '/', label: 'Home', icon: House, end: true, blurb: 'Today' },
+  { to: '/train', label: 'Train', icon: Mountain, blurb: 'Move · Climb · Prep' },
+  { to: '/fuel', label: 'Fuel', icon: Salad, blurb: 'Eat for the send' },
+  { to: '/cycle', label: 'Cycle', icon: CalendarHeart, blurb: 'Track & learn' },
+  { to: '/mind', label: 'Mind', icon: Brain, blurb: 'Focus & calm' },
 ] as const;
+
+/** Issue number = day of the year, like a daily edition. */
+function issue(d = new Date()) {
+  const start = new Date(d.getFullYear(), 0, 0);
+  return String(Math.floor((d.getTime() - start.getTime()) / 86_400_000)).padStart(3, '0');
+}
 
 export function Layout() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  const no = issue();
+  const month = new Date().toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
 
   return (
     <div className="min-h-dvh lg:flex">
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:rounded-lg focus:bg-white focus:p-3">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:p-3">
         Skip to content
       </a>
 
-      {/* Desktop sidebar */}
-      <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-bone-300/60 bg-bone-50/90 px-5 py-7 backdrop-blur-md lg:flex">
-        <Wordmark />
-        <p className="display-italic mt-2 pl-[2.6rem] text-sm text-clay-600">Train. Fuel. Thrive.</p>
-        <nav aria-label="Main" className="mt-8 flex flex-col gap-1">
-          {NAV.map(({ to, label, icon: Icon, ...rest }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={'end' in rest}
-              className={({ isActive }) =>
-                cx(
-                  'flex min-h-11 items-center gap-3 rounded-xl px-3 font-medium transition-colors',
-                  isActive ? 'bg-ink-900 text-bone-50 shadow-md' : 'text-ink-600 hover:bg-bone-200',
-                )
-              }
-            >
-              <Icon size={20} aria-hidden /> {label}
-            </NavLink>
-          ))}
+      {/* ── Desktop sidebar: a magazine table of contents ── */}
+      <aside className="grain sticky top-0 hidden h-dvh w-72 shrink-0 flex-col overflow-y-auto bg-ink-900 text-bone-100 lg:flex">
+        <div className="px-7 pt-7">
+          <p className="flex justify-between font-mono text-[0.65rem] tracking-[0.14em] text-bone-100/55 uppercase">
+            <span>/Vol. 01</span>
+            <span>No. {no}</span>
+          </p>
+          <NavLink to="/" aria-label="CRUX home" className="mt-3 block font-grotesk text-[4.6rem] leading-[0.85] font-medium tracking-[-0.04em] text-bone-50">
+            CRUX
+          </NavLink>
+          <p className="mt-3 font-display text-lg text-bone-100/80 italic">Train, Fuel, Thrive.</p>
+        </div>
+
+        <nav aria-label="Main" className="mt-6 border-t border-bone-50/15 px-7 pt-5">
+          <p className="mb-2 font-mono text-[0.65rem] tracking-[0.14em] text-bone-100/50 uppercase">Contents</p>
+          <ol>
+            {NAV.map(({ to, label, blurb, ...rest }, i) => (
+              <li key={to} className="border-b border-bone-50/10">
+                <NavLink to={to} end={'end' in rest} className="group flex items-baseline gap-4 py-2.5">
+                  {({ isActive }) => (
+                    <>
+                      <span className={cx('w-6 font-mono text-[0.7rem]', isActive ? 'text-mustard-300' : 'text-bone-100/45')}>0{i + 1}</span>
+                      <span className="flex-1">
+                        <span className={cx('block font-display text-[1.65rem] leading-tight italic transition-colors', isActive ? 'text-mustard-300' : 'text-bone-50 group-hover:text-mustard-200')}>
+                          {label}
+                        </span>
+                        <span className="block font-mono text-[0.62rem] tracking-[0.12em] text-bone-100/45 uppercase">{blurb}</span>
+                      </span>
+                      <span aria-hidden className={cx('h-2 w-2 self-center transition-colors', isActive ? 'bg-mustard-300' : 'bg-transparent')} />
+                    </>
+                  )}
+                </NavLink>
+              </li>
+            ))}
+          </ol>
         </nav>
-        <NavLink
-          to="/guide"
-          className="mt-6 flex min-h-11 items-center gap-3 rounded-xl bg-clay-600 px-3 font-semibold text-white shadow-md hover:bg-clay-700"
-        >
-          <Sparkles size={20} aria-hidden /> CRUX GUIDE
-        </NavLink>
-        <NavLink
-          to="/settings"
-          className={({ isActive }) =>
-            cx('mt-auto flex min-h-11 items-center gap-3 rounded-xl px-3 font-medium', isActive ? 'bg-ink-900 text-bone-50' : 'text-ink-600 hover:bg-bone-200')
-          }
-        >
-          <CircleUserRound size={20} aria-hidden /> Profile & privacy
-        </NavLink>
+
+        <div className="px-7 pt-6">
+          <NavLink to="/guide" className="group flex items-end justify-between bg-mustard-300 p-4 text-ink-900 transition-colors hover:bg-mustard-200">
+            <span>
+              <span className="block font-mono text-[0.62rem] tracking-[0.14em] uppercase">AI assistant</span>
+              <span className="block font-display text-2xl italic">Ask the Guide</span>
+            </span>
+            <ArrowUpRight size={22} aria-hidden className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </NavLink>
+        </div>
+
+        <figure className="sidebar-fig mt-6 px-7">
+          <div className="aspect-[16/9] overflow-hidden border border-bone-50/15">
+            <Ridge id="sidebar" align="xMaxYMax" className="h-full w-full" />
+          </div>
+          <figcaption className="mt-2 flex justify-between font-mono text-[0.6rem] tracking-[0.12em] text-bone-100/50 uppercase">
+            <span>Fig. 01 — The crux</span>
+            <span>Golden hour</span>
+          </figcaption>
+        </figure>
+
+        <div className="mt-auto border-t border-bone-50/15 px-7 py-5">
+          <NavLink to="/settings" className={({ isActive }) => cx('flex items-center gap-2 font-mono text-[0.7rem] tracking-[0.12em] uppercase', isActive ? 'text-mustard-300' : 'text-bone-100/75 hover:text-bone-50')}>
+            <CircleUserRound size={16} aria-hidden /> Profile & privacy
+          </NavLink>
+          <p className="mt-3 font-mono text-[0.58rem] tracking-[0.12em] text-bone-100/35 uppercase">{month} · Edition {no}</p>
+        </div>
       </aside>
 
       <div className="flex min-h-dvh flex-1 flex-col">
-        {/* Mobile header */}
-        <header className="safe-top sticky top-0 z-30 border-b border-bone-300/50 bg-bone-50/90 backdrop-blur-md lg:hidden">
+        {/* ── Mobile masthead ── */}
+        <header className="safe-top sticky top-0 z-30 border-b border-ink-900/15 bg-bone-50/95 backdrop-blur lg:hidden">
           <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
-            <NavLink to="/" aria-label="CRUX home">
-              <Wordmark />
+            <NavLink to="/" aria-label="CRUX home" className="flex items-baseline gap-2.5">
+              <span className="font-grotesk text-[1.9rem] leading-none font-medium tracking-[-0.04em] text-ink-900">CRUX</span>
+              <span className="font-mono text-[0.6rem] tracking-[0.12em] text-ink-500 uppercase">No. {no}</span>
             </NavLink>
             <div className="flex items-center gap-1">
-              <NavLink
-                to="/guide"
-                className="flex min-h-10 items-center gap-1.5 rounded-full bg-ink-900 px-3.5 text-sm font-semibold text-bone-50"
-              >
-                <Sparkles size={16} aria-hidden /> Guide
+              <NavLink to="/guide" className="flex min-h-9 items-center bg-mustard-300 px-3 font-mono text-[0.7rem] font-medium tracking-[0.12em] text-ink-900 uppercase">
+                Guide ↗
               </NavLink>
-              <NavLink to="/settings" aria-label="Profile and privacy" className="grid h-10 w-10 place-items-center rounded-full text-ink-600 hover:bg-bone-200">
-                <CircleUserRound size={22} aria-hidden />
+              <NavLink to="/settings" aria-label="Profile and privacy" className="grid h-10 w-10 place-items-center text-ink-700">
+                <CircleUserRound size={21} aria-hidden />
               </NavLink>
             </div>
           </div>
         </header>
 
-        <main id="main" className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-32 lg:max-w-5xl lg:px-8 lg:pt-8 lg:pb-12">
+        <main id="main" className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-28 lg:max-w-5xl lg:px-10 lg:pt-10 lg:pb-14">
           <Outlet />
         </main>
 
-        {/* Mobile bottom tab bar */}
-        <nav aria-label="Main" className="safe-bottom fixed inset-x-0 bottom-0 z-30 px-3 pb-3 lg:hidden">
-          <ul className="mx-auto grid max-w-md grid-cols-5 rounded-[1.75rem] bg-ink-900/95 p-1.5 shadow-[var(--shadow-lift)] backdrop-blur-md">
+        {/* ── Mobile tab bar ── */}
+        <nav aria-label="Main" className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t border-ink-900/20 bg-bone-50/95 backdrop-blur lg:hidden">
+          <ul className="mx-auto grid max-w-2xl grid-cols-5">
             {NAV.map(({ to, label, icon: Icon, ...rest }) => (
               <li key={to}>
                 <NavLink
                   to={to}
                   end={'end' in rest}
                   className={({ isActive }) =>
-                    cx('flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-[1.4rem] text-[0.7rem] font-semibold tracking-wide transition-colors', isActive ? 'bg-bone-50/10 text-ochre-200' : 'text-bone-100/70')
+                    cx('flex min-h-15 flex-col items-center justify-center gap-1 font-mono text-[0.62rem] font-medium tracking-[0.12em] uppercase transition-colors', isActive ? 'bg-ink-900 text-mustard-300' : 'text-ink-600')
                   }
                 >
-                  {({ isActive }) => (
-                    <>
-                      <span className="grid h-7 w-10 place-items-center">
-                        <Icon size={21} aria-hidden strokeWidth={isActive ? 2.4 : 2} />
-                      </span>
-                      {label}
-                    </>
-                  )}
+                  <Icon size={19} aria-hidden strokeWidth={1.6} />
+                  {label}
                 </NavLink>
               </li>
             ))}

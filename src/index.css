@@ -1,25 +1,38 @@
 @import 'tailwindcss';
 
-/* ───────────── CRUX design tokens ─────────────
-   Editorial desert-stone palette: bone & sandstone, terracotta clay / corten rust,
-   oxblood, ochre, moss and dusty mauve, anchored by warm ink.
-   Body-text pairings meet WCAG AA (4.5:1). */
+/* ───────────── CRUX — editorial design system ─────────────
+   Fashion-editorial: square sheets on a soft ikat backdrop, hairline rules,
+   Garamond italic headlines, mono captions, flat colour-block spreads. */
 @theme {
   --font-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-display: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-grotesk: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif;
 
-  --color-bone-50: #fbf7f1;
-  --color-bone-100: #f3ebdf;
-  --color-bone-200: #e9dccb;
-  --color-bone-300: #dbc8b0;
+  /* paper */
+  --color-bone-50: #fcfaf2;
+  --color-bone-100: #f6f1e4;
+  --color-bone-200: #ebe4d2;
+  --color-bone-300: #d9cfb8;
 
-  --color-ink-300: #a89e94;
-  --color-ink-400: #867b70;
-  --color-ink-500: #675d54;
-  --color-ink-600: #4d453f;
-  --color-ink-700: #37302b;
-  --color-ink-800: #25201c;
-  --color-ink-900: #171310;
+  --color-ink-300: #a39d94;
+  --color-ink-400: #7f786f;
+  --color-ink-500: #615b54;
+  --color-ink-600: #4a4540;
+  --color-ink-700: #35312d;
+  --color-ink-800: #221f1c;
+  --color-ink-900: #121110;
+
+  /* flat editorial blocks */
+  --color-mustard-200: #f8e6a8;
+  --color-mustard-300: #f6d76b;
+  --color-mustard-400: #edc443;
+  --color-sky-100: #dcebf5;
+  --color-sky-200: #b9d7ea;
+  --color-sky-300: #9ec9e6;
+  --color-cocoa-500: #6b4537;
+  --color-cocoa-600: #5a3a2e;
+  --color-cocoa-700: #472d24;
 
   --color-clay-50: #fbf0ea;
   --color-clay-100: #f5ddd0;
@@ -62,13 +75,13 @@
   --color-mauve-600: #694c58;
   --color-mauve-700: #533b46;
 
-  --radius-card: 1.5rem;
-  --shadow-soft: 0 1px 2px rgb(23 19 16 / 0.08), 0 12px 32px -12px rgb(74 18 19 / 0.45);
-  --shadow-lift: 0 2px 6px rgb(23 19 16 / 0.08), 0 24px 48px -16px rgb(60 25 10 / 0.35);
-  --animate-rise: rise 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --radius-card: 0px;
+  --shadow-soft: 0 1px 0 rgb(18 17 16 / 0.04), 0 18px 40px -24px rgb(40 20 15 / 0.45);
+  --shadow-lift: 0 30px 60px -30px rgb(40 20 15 / 0.6);
+  --animate-rise: rise 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 }
@@ -82,33 +95,30 @@
     @apply bg-bone-100 font-sans text-ink-800 antialiased;
     font-size: 1rem;
     line-height: 1.6;
-    /* CRUX ikat: original oxblood-on-sand warp-dyed pattern (scripts/generate-ikat.cjs) */
-    background-color: #d6c2a2;
-    background-image: url('/textures/ikat.webp');
-    background-size: 560px auto;
-    background-repeat: repeat;
+    /* soft-focus ikat, like a blurred photograph behind printed pages */
+    background-color: #d4c0a3;
+    background-image: url('/textures/ikat-soft.webp');
+    background-size: 640px auto;
   }
-  /* film-grain / sandstone texture over the whole page */
+  @media (min-width: 1024px) {
+    body { background-size: 900px auto; }
+  }
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 60;
-    opacity: 0.045;
+    opacity: 0.05;
     background-image: var(--grain);
-  }
-  @media (min-width: 1024px) {
-    body { background-size: 760px auto; }
   }
   h1, h2, h3 {
     @apply text-ink-900;
-    line-height: 1.15;
+    line-height: 1.1;
   }
   :focus-visible {
-    outline: 3px solid var(--color-clay-400);
+    outline: 2px solid var(--color-ink-900);
     outline-offset: 2px;
-    border-radius: 0.5rem;
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -123,31 +133,47 @@
 }
 
 @utility btn {
-  @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 text-[0.95rem] font-semibold tracking-wide transition-all disabled:cursor-not-allowed disabled:opacity-40;
+  @apply inline-flex min-h-11 items-center justify-center gap-2 px-5 font-mono text-[0.78rem] font-medium tracking-[0.12em] uppercase transition-colors disabled:cursor-not-allowed disabled:opacity-35;
 }
 
 @layer components {
+  /* A printed sheet, auto-numbered like magazine pages */
   .card {
-    @apply relative rounded-[var(--radius-card)] border border-bone-50/60 bg-bone-50/95 p-5 backdrop-blur-sm sm:p-6;
+    @apply relative border border-ink-900/10 bg-bone-50 p-5 sm:p-7;
+    box-shadow: var(--shadow-soft);
+    counter-increment: page;
+  }
+  .card::before {
+    content: 'P. ' counter(page, decimal-leading-zero);
+    position: absolute;
+    right: 1rem;
+    bottom: 0.7rem;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    color: var(--color-ink-400);
+  }
+  .card-ink {
+    @apply relative overflow-hidden bg-ink-900 p-5 text-bone-100 sm:p-7;
     box-shadow: var(--shadow-soft);
   }
-  /* Dark editorial panel */
-  .card-ink {
-    @apply relative overflow-hidden rounded-[var(--radius-card)] bg-ink-900 p-5 text-bone-100 sm:p-6;
-    box-shadow: var(--shadow-lift);
-  }
   .card-ink h2, .card-ink h3 { @apply text-bone-50; }
-  .card-ink .eyebrow { @apply text-clay-300; }
-  .btn-primary { @apply btn bg-ink-900 text-bone-50 hover:bg-clay-700; }
+  .card-ink .eyebrow { @apply text-bone-100/60; }
+  .btn-primary { @apply btn bg-ink-900 text-bone-50 hover:bg-ink-700; }
   .btn-accent { @apply btn bg-clay-600 text-white hover:bg-clay-700; }
-  .btn-secondary { @apply btn border border-ink-300/60 bg-transparent text-ink-800 hover:border-ink-800; }
-  .btn-ghost { @apply btn px-3 text-ink-600 hover:bg-bone-200; }
+  .btn-secondary { @apply btn border border-ink-900 bg-transparent text-ink-900 hover:bg-ink-900 hover:text-bone-50; }
+  .btn-ghost { @apply btn px-3 text-ink-700 underline-offset-4 hover:underline; }
   .input {
-    @apply min-h-11 w-full rounded-xl border border-bone-300 bg-white/80 px-4 text-ink-800 placeholder:text-ink-400 focus:border-clay-400 focus:outline-none;
+    @apply min-h-11 w-full border-0 border-b border-ink-900/40 bg-transparent px-0.5 text-ink-900 placeholder:text-ink-400 focus:border-ink-900 focus:outline-none;
   }
-  .eyebrow { @apply text-[0.7rem] font-semibold tracking-[0.22em] text-clay-600 uppercase; }
-  .display-italic { @apply font-display italic; font-variation-settings: 'SOFT' 100, 'WONK' 1; }
+  select.input { @apply border border-ink-900/30 px-3; }
+  /* mono caption: "/VOL. 001", "JUNE 2026", "02 — CHECK-IN" */
+  .eyebrow { @apply font-mono text-[0.68rem] font-medium tracking-[0.14em] text-ink-500 uppercase; }
+  .display-italic { @apply font-display italic; }
+  .rule { @apply border-t border-ink-900/15; }
 }
+
+main { counter-reset: page; }
 
 .grain { position: relative; }
 .grain::after {
@@ -155,8 +181,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border-radius: inherit;
-  opacity: 0.18;
+  opacity: 0.16;
   mix-blend-mode: overlay;
   background-image: var(--grain);
 }
@@ -164,7 +189,6 @@
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 .safe-top { padding-top: env(safe-area-inset-top); }
 
-/* Staggered entrance for dashboard sections */
 .rise > * { animation: var(--animate-rise); }
 .rise > *:nth-child(2) { animation-delay: 70ms; }
 .rise > *:nth-child(3) { animation-delay: 140ms; }
@@ -176,5 +200,10 @@
 .no-scrollbar { scrollbar-width: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* Organic, hold-like blob for icon tiles */
-.hold-blob { border-radius: 58% 42% 52% 48% / 46% 56% 44% 54%; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 38s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .marquee { animation: none; } }
+.card-ink > div:first-child { border-color: rgb(252 250 242 / 0.15); }
+
+/* Hide the sidebar plate on short screens so navigation never scrolls */
+@media (max-height: 960px) { .sidebar-fig { display: none; } }

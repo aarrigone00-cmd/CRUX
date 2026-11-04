@@ -48,8 +48,8 @@ export function ClimbingWall({ className = '', routeColor = '#cb744c' }: { class
         <Hold key={`r${i}`} shape={h.shape} color={routeColor} className="absolute drop-shadow-md" style={pos(h)} />
       ))}
       {/* start tape & top tag */}
-      <span className="absolute h-1.5 w-7 -rotate-12 rounded-sm bg-bone-50/90" style={{ left: `${ROUTE[0].x - 3}%`, top: `${ROUTE[0].y + 9}%` }} />
-      <span className="absolute rounded-md bg-bone-50 px-1.5 py-0.5 text-[0.6rem] font-bold tracking-widest text-clay-700" style={{ left: `${ROUTE[5].x - 10}%`, top: `${ROUTE[5].y + 2}%` }}>
+      <span className="absolute h-1.5 w-7 -rotate-12 bg-bone-50/90" style={{ left: `${ROUTE[0].x - 3}%`, top: `${ROUTE[0].y + 9}%` }} />
+      <span className="absolute bg-bone-50 px-1.5 py-0.5 text-[0.6rem] font-bold tracking-widest text-clay-700" style={{ left: `${ROUTE[5].x - 10}%`, top: `${ROUTE[5].y + 2}%` }}>
         TOP
       </span>
     </div>
