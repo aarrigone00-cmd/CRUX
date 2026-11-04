@@ -38,7 +38,7 @@ On the Home screen, tap **Load demo data** to see a populated week.
 
 - **React 19, TypeScript and Vite.** Fast development server and production build.
 - **Tailwind CSS v4.** Design tokens live in `src/index.css`.
-- **Visual identity.** Fashion-editorial: square paper sheets with hairline rules and auto page numbers, EB Garamond italic titles, DM Mono captions, an Inter Tight masthead, and flat colour-block "Archives" spreads (mustard, sky, cocoa). Captioned plates show original artwork: a golden-hour ridge with a climber (`Ridge.tsx`), a bouldering wall and holds (`ClimbingWall.tsx`, `Holds.tsx`), and CRUX's own ikat. The background is a soft-focus version of that ikat; `scripts/generate-ikat.cjs` generates `public/textures/ikat.webp` (it needs Playwright), and `ikat-soft.webp` is a seamless blurred copy.
+- **Visual identity.** Fashion-editorial: square paper sheets with hairline rules and auto page numbers, EB Garamond italic titles, DM Mono captions, an Inter Tight masthead, and flat colour-block "Archives" spreads (mustard, sky, cocoa). Captioned plates show original artwork: a golden-hour ridge with a climber (`Ridge.tsx`), a bouldering wall and holds (`ClimbingWall.tsx`, `Holds.tsx`), and CRUX's own ikat. The app background is that ikat at full detail; `scripts/generate-ikat.cjs` generates `public/textures/ikat.webp` (it needs Playwright).
 - **React Router.** Five-tab bottom navigation on phones and a sidebar on desktop.
 - **Progressive Web App.** Includes a manifest, icons and a service worker (`public/sw.js`), so CRUX can be installed to the home screen and the app shell still loads offline.
 - **Supabase (Phase 2).** Provides Postgres, auth and row-level security.

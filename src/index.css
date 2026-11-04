@@ -95,13 +95,13 @@
     @apply bg-bone-100 font-sans text-ink-800 antialiased;
     font-size: 1rem;
     line-height: 1.6;
-    /* soft-focus ikat, like a blurred photograph behind printed pages */
-    background-color: #d4c0a3;
-    background-image: url('/textures/ikat-soft.webp');
-    background-size: 640px auto;
+    /* CRUX ikat, full detail, behind the printed sheets */
+    background-color: #d6c2a2;
+    background-image: url('/textures/ikat.webp');
+    background-size: 560px auto;
   }
   @media (min-width: 1024px) {
-    body { background-size: 900px auto; }
+    body { background-size: 760px auto; }
   }
   body::before {
     content: '';
