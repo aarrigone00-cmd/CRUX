@@ -86,6 +86,17 @@ src/
 2. **Email confirmations:** Supabase's built-in mailer only delivers to your project team and is rate-limited. For a class demo, turn **off** *Confirm email* (Sign In / Providers → Email), or connect your own SMTP.
 3. **Google:** create an OAuth client in Google Cloud with redirect URI `https://aubvnnhzvjqfnomkpvxl.supabase.co/auth/v1/callback`, then enable the Google provider in Supabase with its client ID and secret.
 
+## CLIMB (Phase 3, first module)
+
+Train → Climb is live:
+
+- **Session log:** bouldering, sport, top rope or trad; indoor or outdoor; location, duration and notes.
+- **Climbs inside a session:** each has a grade, a result (flash, onsight, redpoint/send, or project) and an attempt count.
+- **Grades:** V-scale or Font for boulders, YDS or French for routes. Grades are stored as a canonical index, so switching systems converts everything. Conversions are approximate.
+- **Numbers and charts:** hardest boulder and route, sessions this month, send rate, a 90-day grade pyramid, and hardest send per month over six months.
+- **Goals:** a goal ticks itself off when you log a send at or above its target grade, and otherwise can be ticked by hand.
+- **Storage:** tables `climb_sessions`, `climbs` and `climb_goals`, all with row-level security. A climb can only be attached to one of your own sessions.
+
 ## Secrets
 
 - Never commit `.env` files. `.gitignore` already excludes them, and `.env.example` documents the variables.

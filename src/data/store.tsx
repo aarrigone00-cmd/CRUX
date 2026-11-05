@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { todayISO, uid } from '@/lib/date';
-import type { CheckIn, CruxData, PlannedWorkout, Priority, Profile } from '@/lib/types';
+import type { CheckIn, ClimbGoal, ClimbSession, CruxData, PlannedWorkout, Priority, Profile } from '@/lib/types';
 import { demoData, emptyData } from './demo';
 import { useAuth } from './auth';
 import { fetchAll, remote } from './remote';
@@ -19,7 +19,10 @@ function load(): CruxData {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw) as CruxData;
-      if (parsed?.version === 1) return { ...emptyData(), ...parsed };
+      if (parsed?.version === 1) {
+        const base = emptyData();
+        return { ...base, ...parsed, profile: { ...base.profile, ...parsed.profile } };
+      }
     }
   } catch {
     /* storage unavailable or corrupt — start fresh */
@@ -46,6 +49,11 @@ interface Store {
   updateProfile: (p: Partial<Profile>) => void;
   loadDemo: () => void;
   resetAll: () => void;
+  saveClimbSession: (s: Omit<ClimbSession, 'id'> & { id?: string }) => void;
+  deleteClimbSession: (id: string) => void;
+  addGoal: (g: Omit<ClimbGoal, 'id' | 'done' | 'createdAt'>) => void;
+  toggleGoal: (id: string) => void;
+  deleteGoal: (id: string) => void;
 }
 
 const StoreContext = createContext<Store | null>(null);
@@ -211,6 +219,55 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     persist((u) => remote.clearAll(u));
   }, [persist, userId]);
 
+  const saveClimbSession = useCallback<Store['saveClimbSession']>(
+    (input) => {
+      const x: ClimbSession = { ...input, id: input.id ?? uid() };
+      setData((d) => {
+        const exists = d.climbSessions.some((s) => s.id === x.id);
+        const list = exists ? d.climbSessions.map((s) => (s.id === x.id ? x : s)) : [...d.climbSessions, x];
+        return { ...d, climbSessions: list.sort((a, b) => a.date.localeCompare(b.date)) };
+      });
+      persist((u) => remote.saveClimbSession(u, x));
+    },
+    [persist],
+  );
+
+  const deleteClimbSession = useCallback(
+    (id: string) => {
+      setData((d) => ({ ...d, climbSessions: d.climbSessions.filter((s) => s.id !== id) }));
+      persist(() => remote.deleteClimbSession(id));
+    },
+    [persist],
+  );
+
+  const addGoal = useCallback<Store['addGoal']>(
+    (g) => {
+      const goal: ClimbGoal = { ...g, id: uid(), done: false, createdAt: new Date().toISOString() };
+      setData((d) => ({ ...d, climbGoals: [...d.climbGoals, goal] }));
+      persist((u) => remote.upsertGoal(u, goal));
+    },
+    [persist],
+  );
+
+  const toggleGoal = useCallback(
+    (id: string) => {
+      const cur = dataRef.current.climbGoals.find((g) => g.id === id);
+      if (!cur) return;
+      const next = { ...cur, done: !cur.done };
+      setData((d) => ({ ...d, climbGoals: d.climbGoals.map((g) => (g.id === id ? next : g)) }));
+      persist((u) => remote.upsertGoal(u, next));
+    },
+    [persist],
+  );
+
+  const deleteGoal = useCallback(
+    (id: string) => {
+      setData((d) => ({ ...d, climbGoals: d.climbGoals.filter((g) => g.id !== id) }));
+      persist(() => remote.deleteGoal(id));
+    },
+    [persist],
+  );
+
   const deleteAccount = useCallback(async () => {
     await remote.deleteAccount();
     try {
@@ -239,8 +296,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       loadDemo,
       resetAll,
       deleteAccount,
+      saveClimbSession,
+      deleteClimbSession,
+      addGoal,
+      toggleGoal,
+      deleteGoal,
     }),
-    [data, sync, syncError, today, saveCheckIn, addPriority, togglePriority, removePriority, addWorkout, toggleWorkout, removeWorkout, updateProfile, loadDemo, resetAll, deleteAccount],
+    [data, sync, syncError, today, saveCheckIn, addPriority, togglePriority, removePriority, addWorkout, toggleWorkout, removeWorkout, updateProfile, loadDemo, resetAll, deleteAccount, saveClimbSession, deleteClimbSession, addGoal, toggleGoal, deleteGoal],
   );
 
   return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;

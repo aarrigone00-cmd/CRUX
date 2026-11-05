@@ -19,46 +19,41 @@ const BLOCK: Record<Block, { bg: string; dark: boolean }> = {
   ink: { bg: 'bg-ink-900', dark: true },
 };
 
-/**
- * "Archives" spread for modules that ship in Phase 3: flat colour block, mono volume line,
- * Garamond italic title, two small plates and one large plate — then an honest feature list.
- */
-export function ModulePreview({
+export interface ArchiveProps {
+  name: string;
+  vol: string;
+  tagline: string;
+  block?: Block;
+  plates?: readonly [Art, Art, Art];
+  captions?: readonly [string, string, string];
+  photos?: readonly [Photo, Photo, Photo];
+  overlay?: boolean;
+  status?: string;
+}
+
+/** Colour-block "Archives" spread: volume line, poster title, two small plates and one large plate. */
+export function ArchiveHeader({
   name,
   vol,
   tagline,
-  features,
-  principle,
   block = 'mustard',
   plates = ['ridge-calm', 'holds', 'wall'],
   captions = ['Fig. a', 'Fig. b', 'Fig. c'],
   photos,
   overlay = false,
-}: {
-  overlay?: boolean;
-  photos?: readonly [Photo, Photo, Photo];
-  name: string;
-  vol: string;
-  tagline: string;
-  icon?: ReactNode;
-  features: string[];
-  principle?: string;
-  block?: Block;
-  plates?: readonly [Art, Art, Art];
-  captions?: readonly [string, string, string];
-}) {
+  status = 'In development',
+}: ArchiveProps) {
   const b = BLOCK[block];
   const ink = b.dark ? 'text-bone-50' : 'text-ink-900';
   const sub = b.dark ? 'text-bone-100/70' : 'text-ink-700';
   return (
-    <div className="rise space-y-5">
-      <header className={cx('grain p-5 shadow-[var(--shadow-soft)] sm:p-8', b.bg, ink)}>
+  <header className={cx('grain p-5 shadow-[var(--shadow-soft)] sm:p-8', b.bg, ink)}>
         <div className="flex items-baseline justify-between gap-4">
           <p className="flex items-baseline gap-5">
             <span className="font-display text-2xl leading-none sm:text-3xl">Archives</span>
             <span className={cx('font-mono text-xs tracking-[0.08em]', sub)}>/VOL. {vol}</span>
           </p>
-          <p className="font-mono text-[0.65rem] font-medium tracking-[0.14em] uppercase">In development</p>
+          <p className="font-mono text-[0.65rem] font-medium tracking-[0.14em] uppercase">{status}</p>
         </div>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-[1fr_1.1fr] sm:gap-8">
@@ -93,6 +88,19 @@ export function ModulePreview({
           </PlateDark>
         </div>
       </header>
+  );
+}
+
+/** A module that ships later in Phase 3: the Archives spread plus an honest feature list. */
+export function ModulePreview({
+  features,
+  principle,
+  icon: _icon,
+  ...archive
+}: ArchiveProps & { icon?: ReactNode; features: string[]; principle?: string }) {
+  return (
+    <div className="rise space-y-5">
+      <ArchiveHeader {...archive} />
 
       <section className="card">
         <p className="eyebrow">Phase 3 · Contents</p>

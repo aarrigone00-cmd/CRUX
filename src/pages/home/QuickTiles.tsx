@@ -17,8 +17,8 @@ const CARDS: Array<{
   doodleClass: string;
   copy: string;
 }> = [
-  { to: '/train', label: 'Climb', word: 'Send it', font: 'brush', bg: '#ff7a1f', ink: '#1a1410', doodle: 'holds', doodleClass: 'right-[-6%] top-[22%] w-[62%]', copy: 'Boulders, routes, attempts and sends. Grade pyramid, session notes, personal climbing goals.' },
-  { to: '/train', label: 'Prep', word: 'warm up', font: 'script', bg: '#95d9b4', ink: '#1f3a8a', doodle: 'climber', doodleClass: 'right-[2%] top-[18%] w-[60%]', copy: 'Fingers, wrists, shoulders, hips. Progressive warm-ups with guided timers. Pain-aware swaps.' },
+  { to: '/train?tab=climb', label: 'Climb', word: 'Send it', font: 'brush', bg: '#ff7a1f', ink: '#1a1410', doodle: 'holds', doodleClass: 'right-[-6%] top-[22%] w-[62%]', copy: 'Boulders, routes, attempts and sends. Grade pyramid, session notes, personal climbing goals.' },
+  { to: '/train?tab=prep', label: 'Prep', word: 'warm up', font: 'script', bg: '#95d9b4', ink: '#1f3a8a', doodle: 'climber', doodleClass: 'right-[2%] top-[18%] w-[60%]', copy: 'Fingers, wrists, shoulders, hips. Progressive warm-ups with guided timers. Pain-aware swaps.' },
   { to: '/cycle', label: 'Cycle', word: 'Rhythm', font: 'didone', bg: '#f8aedf', ink: '#e0261b', doodle: 'loops', doodleClass: 'left-[-4%] top-[30%] w-[80%] opacity-70', copy: 'Period calendar, symptoms, mood and energy. Your experience first — never assumptions from dates.' },
   { to: '/fuel', label: 'Fuel', word: 'Fuel', font: 'brush', bg: '#ffd51f', ink: '#24161c', doodle: 'arrow', doodleClass: 'right-[0%] top-[8%] w-[46%]', copy: 'Pre- and post-climb meals, grocery lists, low-prep ideas. Verified nutrition data only.' },
   { to: '/mind', label: 'Mind', word: 'Focus', font: 'didone', bg: '#ddd7b2', ink: '#1c1c1a', doodle: 'cross', doodleClass: 'right-[-8%] top-[14%] w-[70%]', copy: 'Three priorities, simple routines, gentle reminders. Fewer decisions, more done.' },

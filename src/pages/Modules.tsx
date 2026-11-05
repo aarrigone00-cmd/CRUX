@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Brain, CalendarHeart, Dumbbell, Mountain, Salad, StretchHorizontal } from 'lucide-react';
 import { ModulePreview } from '@/components/ModulePreview';
 import { cx } from '@/components/ui';
+import { ClimbPage } from './climb/ClimbPage';
 import type { Art } from '@/components/Figure';
 import { PHOTOS, type Photo } from '@/lib/photos';
 import type { Block } from '@/components/ModulePreview';
@@ -116,7 +117,8 @@ const TRAIN_TABS = [
 ] as const satisfies ReadonlyArray<{ block: Block; plates: readonly [Art, Art, Art]; captions: readonly [string, string, string]; photos: readonly [Photo, Photo, Photo] } & Record<string, unknown>>;
 
 export function Train() {
-  const [tab, setTab] = useState<(typeof TRAIN_TABS)[number]['id']>('move');
+  const initial = new URLSearchParams(window.location.search).get('tab');
+  const [tab, setTab] = useState<(typeof TRAIN_TABS)[number]['id']>(initial === 'climb' || initial === 'prep' ? initial : 'move');
   const t = TRAIN_TABS.find((x) => x.id === tab)!;
   return (
     <div className="space-y-5">
@@ -134,7 +136,7 @@ export function Train() {
         ))}
       </div>
       <div role="tabpanel">
-        <ModulePreview key={t.id} vol={t.vol} block={t.block} plates={t.plates} captions={t.captions} photos={t.photos} name={t.label} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />
+        {t.id === 'climb' ? <ClimbPage /> : <ModulePreview key={t.id} vol={t.vol} block={t.block} plates={t.plates} captions={t.captions} photos={t.photos} name={t.label} icon={t.icon} tagline={t.tagline} features={[...t.features]} principle={'principle' in t ? t.principle : undefined} />}
       </div>
     </div>
   );
