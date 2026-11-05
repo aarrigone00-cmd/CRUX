@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { ArrowUpRight, Brain, CalendarHeart, CircleUserRound, House, Mountain, Salad } from 'lucide-react';
 import { Ridge } from './Ridge';
 import { cx } from './ui';
+import { useStore } from '@/data/store';
 
 /** Underlined keyword in the sidebar intro. */
 function U({ children }: { children: string }) {
@@ -25,6 +26,7 @@ function issue(d = new Date()) {
 
 export function Layout() {
   const { pathname } = useLocation();
+  const { sync, syncError } = useStore();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -124,6 +126,12 @@ export function Layout() {
         </header>
 
         <main id="main" className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-28 lg:max-w-5xl lg:px-10 lg:pt-10 lg:pb-14">
+          {sync === 'error' && (
+            <p role="alert" className="mb-4 border border-oxblood-400 bg-bone-50 p-3 text-oxblood-600">
+              Couldn’t reach your account just now{syncError ? ` (${syncError})` : ''}. Your latest change may not be saved — check your connection and try again.
+            </p>
+          )}
+          {sync === 'loading' && <p className="eyebrow mb-4 w-fit bg-bone-50 px-3 py-1.5">Loading your journal…</p>}
           <Outlet />
         </main>
 

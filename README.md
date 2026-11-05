@@ -9,8 +9,8 @@ CRUX is an integrated wellness and athletic-performance app for active women. It
 | Phase | Scope | Status |
 | --- | --- | --- |
 | 1 | Project setup, design system, navigation, Home dashboard | ✅ Done |
-| 2 | Supabase auth, profiles, persistent data, row-level security | ⏳ Next |
-| 3 | CYCLE, MIND, MOVE, CLIMB, PREP, FUEL | Previews only |
+| 2 | Supabase auth, profiles, persistent data, row-level security | ✅ Done |
+| 3 | CYCLE, MIND, MOVE, CLIMB, PREP, FUEL | ⏳ Next |
 | 4 | CRUX GUIDE (Gemini via secure backend) | Interface built, backend pending |
 | 5 | Testing, mobile polish, class demo | — |
 
@@ -41,7 +41,7 @@ On the Home screen, tap **Load demo data** to see a populated week.
 - **Visual identity.** Poster-editorial: Anton condensed caps for headings, labels and the masthead; Barlow Condensed for body text, with no italics; flat high-contrast colour-block spreads (tomato red, cobalt, mustard, deep green, cocoa, ink) over CRUX's own ikat background. The Home index keeps its riso cards (DM Mono copy, plus brush, script and Bodoni display words). Original artwork lives in `Ridge.tsx`, `ClimbingWall.tsx`, `Holds.tsx` and `Doodle.tsx`, and `scripts/generate-ikat.cjs` generates `public/textures/ikat.webp`.
 - **React Router.** Five-tab bottom navigation on phones and a sidebar on desktop.
 - **Progressive Web App.** Includes a manifest, icons and a service worker (`public/sw.js`), so CRUX can be installed to the home screen and the app shell still loads offline.
-- **Supabase (Phase 2).** Provides Postgres, auth and row-level security.
+- **Supabase.** Provides Postgres, auth (email/password and Google) and row-level security. The schema lives in `supabase/migrations/`.
 - **Google Gemini (Phase 4).** Reached only through a Supabase Edge Function.
 
 ### Why a PWA first, not a native app?
@@ -55,7 +55,9 @@ src/
   index.css            editorial design tokens (paper, ink, mustard, sky, cocoa, clay, oxblood)
   main.tsx             routes
   components/          Layout/navigation, UI primitives, charts, logo
-  data/store.tsx       app state (Phase 1: localStorage; Phase 2: Supabase)
+  data/auth.tsx        sign-in / sign-up / Google / guest mode
+  data/store.tsx       app state: Supabase when signed in, localStorage for guests
+  data/remote.ts       Supabase queries (row ↔ app type mapping)
   lib/types.ts         data model, which mirrors the planned DB tables
   lib/suggestions.ts   rule-based recovery and fuel reminders
   lib/guide.ts         CRUX GUIDE client (talks only to our backend)
@@ -70,6 +72,19 @@ src/
 - **ADHD-friendly.** Daily priorities are capped at three, tap targets are big, and defaults remove decisions.
 - **AI transparency.** CRUX GUIDE requires consent first, labels every AI-generated reply, and gives no diagnoses or medication advice.
 - **Correlation is not causation.** Charts describe what was logged.
+
+## Accounts and data (Phase 2)
+
+- **Sign-in options:** email and password, Google, or *try without an account* (guest mode, where data stays in that browser).
+- **Tables:** `profiles`, `check_ins`, `priorities` and `workouts`, all with row-level security, so each person can only read or write their own rows. A trigger creates a profile on sign-up.
+- **Deletion:** *Profile & privacy* lets you delete all logged data, or call `delete_my_account()` to permanently remove your login and every row you own.
+- **Supabase project:** `CRUX` (`aubvnnhzvjqfnomkpvxl`). The URL and publishable key in `src/lib/supabase.ts` are public by design. Never add the service-role key to the app.
+
+### Dashboard settings to finish (Supabase → Authentication)
+
+1. **URL Configuration:** set *Site URL* to your Netlify URL, and add it plus `http://localhost:5173` to *Redirect URLs*.
+2. **Email confirmations:** Supabase's built-in mailer only delivers to your project team and is rate-limited. For a class demo, turn **off** *Confirm email* (Sign In / Providers → Email), or connect your own SMTP.
+3. **Google:** create an OAuth client in Google Cloud with redirect URI `https://aubvnnhzvjqfnomkpvxl.supabase.co/auth/v1/callback`, then enable the Google provider in Supabase with its client ID and secret.
 
 ## Secrets
 

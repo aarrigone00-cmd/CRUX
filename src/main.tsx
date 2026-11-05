@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { StoreProvider } from './data/store';
+import { AuthProvider, useAuth } from './data/auth';
+import { AuthPage } from './pages/AuthPage';
 import { Layout } from './components/Layout';
 import { Home } from './pages/home/Home';
 import { Cycle, Fuel, Mind, Train } from './pages/Modules';
@@ -19,8 +21,18 @@ function NotFound() {
   );
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+/** Show the sign-in screen until someone signs in or chooses guest mode. */
+function Gate() {
+  const { loading, session, guest } = useAuth();
+  if (loading) {
+    return (
+      <div className="grid min-h-dvh place-items-center">
+        <p className="font-poster text-4xl tracking-wide text-ink-900">CRUX</p>
+      </div>
+    );
+  }
+  if (!session && !guest) return <AuthPage />;
+  return (
     <StoreProvider>
       <BrowserRouter>
         <Routes>
@@ -37,6 +49,14 @@ createRoot(document.getElementById('root')!).render(
         </Routes>
       </BrowserRouter>
     </StoreProvider>
+  );
+}
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <AuthProvider>
+      <Gate />
+    </AuthProvider>
   </StrictMode>,
 );
 

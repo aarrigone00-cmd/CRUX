@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Download, Lock, Trash2, UserRound } from 'lucide-react';
+import { Download, LogOut, Lock, Trash2, UserRound } from 'lucide-react';
 import { useStore } from '@/data/store';
+import { useAuth } from '@/data/auth';
 import { ACTIVITY_TYPES } from '@/lib/types';
 import { getGuideConsent, setGuideConsent } from '@/lib/guide';
 import { Chip, SectionHeader } from '@/components/ui';
@@ -10,9 +11,12 @@ import { PHOTOS, type Photo } from '@/lib/photos';
 const CREDITS: Photo[] = Object.values(PHOTOS);
 
 export function Settings() {
-  const { data, updateProfile, resetAll, loadDemo } = useStore();
+  const { data, updateProfile, resetAll, loadDemo, deleteAccount, sync } = useStore();
+  const { userId, email, signOut } = useAuth();
   const [guideConsent, setConsent] = useState(getGuideConsent);
   const [confirming, setConfirming] = useState(false);
+  const [confirmingAccount, setConfirmingAccount] = useState(false);
+  const [accountError, setAccountError] = useState<string | null>(null);
 
   function exportData() {
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -51,7 +55,16 @@ export function Settings() {
       <section className="card space-y-4">
         <SectionHeader title="Your data" icon={<Lock size={20} aria-hidden />} />
         <p className="text-ink-700">
-          Right now your data is stored <strong>only in this browser</strong> on this device. Nothing is sent to a server. Account sync with private, per-user storage arrives in the next phase.
+          {userId ? (
+            <>
+              Your data is saved to your private CRUX account and syncs across devices. Only you can read it — every row is locked to your account.{' '}
+              <span className="text-ink-500">Status: {sync === 'error' ? 'a change failed to save' : sync === 'saving' ? 'saving…' : 'saved'}.</span>
+            </>
+          ) : (
+            <>
+              You’re using CRUX as a guest: your data is stored <strong>only in this browser</strong>. Create an account to keep it safe and use it on other devices.
+            </>
+          )}
         </p>
         <label className="flex items-start gap-3 bg-bone-200/50 p-3">
           <input
@@ -76,12 +89,12 @@ export function Settings() {
         </div>
         {!confirming ? (
           <button className="btn border border-oxblood-500 text-oxblood-500 hover:bg-oxblood-500 hover:text-bone-50" onClick={() => setConfirming(true)}>
-            <Trash2 size={16} aria-hidden /> Delete all my data
+            <Trash2 size={16} aria-hidden /> Delete all my logged data
           </button>
         ) : (
           <div role="alertdialog" aria-labelledby="del-title" className=" border border-clay-200 bg-clay-50 p-4">
-            <p id="del-title" className="font-semibold text-clay-700">Delete everything stored by CRUX on this device?</p>
-            <p className="text-sm text-clay-700">Check-ins, priorities, workouts and your profile will be removed. This can’t be undone.</p>
+            <p id="del-title" className="font-semibold text-clay-700">Delete all your logged data?</p>
+            <p className="text-sm text-clay-700">Check-ins, priorities and workouts will be removed{userId ? ' from your account' : ' from this browser'}. This can’t be undone.</p>
             <div className="mt-3 flex gap-2">
               <button
                 className="btn bg-clay-600 text-white hover:bg-clay-700"
@@ -97,6 +110,55 @@ export function Settings() {
               <button className="btn-ghost" onClick={() => setConfirming(false)}>Cancel</button>
             </div>
           </div>
+        )}
+      </section>
+
+      <section className="card space-y-4">
+        <SectionHeader eyebrow="Account" title={userId ? 'Signed in' : 'Guest mode'} />
+        {userId ? (
+          <>
+            <p className="text-ink-700">Signed in as <strong>{email}</strong>.</p>
+            <div className="flex flex-wrap gap-2">
+              <button className="btn-secondary" onClick={() => signOut()}>
+                <LogOut size={16} aria-hidden /> Sign out
+              </button>
+              {!confirmingAccount && (
+                <button className="btn border border-oxblood-500 text-oxblood-500 hover:bg-oxblood-500 hover:text-bone-50" onClick={() => setConfirmingAccount(true)}>
+                  <Trash2 size={16} aria-hidden /> Delete my account
+                </button>
+              )}
+            </div>
+            {confirmingAccount && (
+              <div role="alertdialog" aria-labelledby="acct-title" className="border border-oxblood-400 bg-clay-50 p-4">
+                <p id="acct-title" className="font-semibold text-oxblood-600">Permanently delete your CRUX account?</p>
+                <p className="text-sm text-oxblood-600">Your login, profile and every check-in, priority and workout are erased from our servers. This can’t be undone.</p>
+                {accountError && <p role="alert" className="mt-2 text-sm text-oxblood-600">{accountError}</p>}
+                <div className="mt-3 flex gap-2">
+                  <button
+                    className="btn bg-oxblood-500 text-white hover:bg-oxblood-600"
+                    onClick={async () => {
+                      setAccountError(null);
+                      try {
+                        await deleteAccount();
+                        setGuideConsent(false);
+                        await signOut();
+                      } catch (e) {
+                        setAccountError(e instanceof Error ? e.message : 'Could not delete the account. Please try again.');
+                      }
+                    }}
+                  >
+                    Yes, delete my account
+                  </button>
+                  <button className="btn-ghost" onClick={() => setConfirmingAccount(false)}>Cancel</button>
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <>
+            <p className="text-ink-700">You’re trying CRUX without an account. Your data lives in this browser only.</p>
+            <button className="btn-primary" onClick={() => signOut()}>Sign in or create an account</button>
+          </>
         )}
       </section>
 
